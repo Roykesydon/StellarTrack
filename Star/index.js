@@ -127,7 +127,7 @@ function sun_orbit(the_sun){
     if(rotateAngle_sas>2*Math.PI)
         rotateAngle_sas=0;
     else
-        rotateAngle_sas+=0.03;
+        rotateAngle_sas+=0.3;
     the_sun.position.z=33*Math.cos(rotateAngle_sas);
     the_sun.position.y=33*Math.sin(rotateAngle_sas);
     light_sas.position.copy(the_sun.position);
@@ -143,6 +143,7 @@ function init() {
     renderer.setSize(container.offsetWidth, container.offsetHeight);
     renderer.setClearColor(0xeeeeee, 1.0);
     renderer.shadowMap.enable = true;
+    renderer.shadowMap.type = 2;
 
     camera = new THREE.PerspectiveCamera(
         45, //視角
@@ -209,8 +210,8 @@ function render() {
     requestAnimationFrame(render);
     orbit_camera.update();
     StatsUI.update();
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = 2;
+    // renderer.shadowMap.enabled = true;
+
     renderer.render(scene, camera);
 }
 
