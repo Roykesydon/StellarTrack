@@ -1,5 +1,6 @@
 #user {
-	background-image:url(maxresdefault.jpg);
+    background-image:url(maxresdefault.jpg);
+    background-size:2000px;
     float: right;
     width: 25%;
 	height: 100%;
