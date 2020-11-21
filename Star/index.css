@@ -1,14 +1,25 @@
-#user{
-	float:right;
-	width:25%;
-	height:100%;
+#user {
+    float: right;
+    width: 25%;
+	height: 100%;
+	z-index: 100;
+	position: absolute;
+	left:75%;
+	top:0px;
 }
-select{
-		text-align:center;
-		width:50%;
-		height:25%;
+#threeJS {
+    z-index: 1;
+    position: absolute;
+    left: 0px;
+	top: 0px;
+	width: 75%;
 }
-input{
-		width:45%;
-		height:25%;
+select {
+    text-align: center;
+    width: 50%;
+    height: 25%;
+}
+input {
+    width: 45%;
+    height: 25%;
 }
