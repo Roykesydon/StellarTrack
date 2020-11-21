@@ -2,26 +2,53 @@
 <html>
     <head>
         <title>StellarTrack</title>
-        <link rel="stylesheet" href="./index.css" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
+		<link rel="stylesheet" href="./index.css" />
+		<link rel="stylesheet" href="./loading.css" />
+		<script src="./select.js"></script> 
+		<script type="text/javascript" src="catalog/view/javascript/jquery/jquery-1.6.1.min.js"></script>
+	   	<script src="./index.js"></script> 
+	   	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.min.js"></script>
     </head>
-    <body>
-        <div id="threeJS"></div>
+	<body onload="myFunction()">
+	<div id='loading'></div>
+	<div id="myDiv" style="display:none;">
+		<div id="threeJS"></div>
         <div id="user">
 		<br><br><br><br><br>
-		<select>
-			<option>請選擇國家</option>
-			<option>台灣</option>
-			<option>美國</option>
-			<option>英國</option>
-			<option>澳洲</option>
-		</select>
+		<input type="button" value="國家"  onclick="disLoc()"></input>
+		<input type="button" value="經緯度"  onclick="disConutry()"></input>
+		<br><br><br>
+		<span style="display: none;" id="choose1"><select name="country" id="country">
+			<option value="NULL">請選擇國家</option>
+			<option value="Taiwan">台灣</option>
+			<option value="America">美國</option>
+			<option value="England">英國</option>
+			<option value="Australia">澳洲</option>
+		</select></span>
 		<br><br><br><br><br>
-		<input type="button" value="Google"></input>
-		<br><br><br><br><br>
-		經度:<input type="test"></input><br>
-		緯度:<input type="test"></input>
-	</div> 
-	<script src="./index.js"></script>
+		<span  style="display: none;" id="choose2"><font>經度:</font><input type="test" id="longitude"></input><br>
+		<font>緯度:</font><input type="test" id="latitude"></input></span>
+		<br><br><br><br>
+		<input type="button" value="Google" onclick="B()"></input>
+		<br><br><br><br>
+		<input type="button" value="春分" class="season"></input>
+		<input type="button" value="夏至、秋分" class="season"></input>
+		<input type="button" value="冬至" class="season"></input>
+		<div id="result"></div>
+		</div> 
+		
+	</div>
+	<script>
+		var myVar;
+		function myFunction() {
+  				myVar = setTimeout(showPage, 500);
+		}
+		function showPage() {
+ 			document.getElementById("loading").style.display = "none";
+			document.getElementById("myDiv").style.display = "block";
+			init();
+			render();
+		}
+	</script>
     </body>
 </html>

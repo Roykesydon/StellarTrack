@@ -52,8 +52,5 @@ function render(){
     requestAnimationFrame(render);
     renderer.render(scene,camera);
 }
-
-
-
-init();
-render();
+/*init();
+render();*/

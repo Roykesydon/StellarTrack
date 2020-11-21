@@ -1,4 +1,5 @@
 #user {
+	background-image:url(maxresdefault.jpg);
     float: right;
     width: 25%;
 	height: 100%;
@@ -6,6 +7,12 @@
 	position: absolute;
 	left:75%;
 	top:0px;
+}
+font{
+	color:white;
+}
+#result{
+		color:white;
 }
 #threeJS {
 	float: left;
@@ -26,4 +33,8 @@ select {
 input {
     width: auto;
     height: auto;
+}
+.season{
+	color:white;
+	background-color:green;
 }
