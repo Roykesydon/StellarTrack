@@ -8,11 +8,13 @@
 	top:0px;
 }
 #threeJS {
+	float: left;
     z-index: 1;
     position: absolute;
     left: 0px;
 	top: 0px;
 	width: 75%;
+	height: 100%;
 }
 select {
     text-align: center;
