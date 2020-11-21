@@ -203,7 +203,6 @@ function initStats() {
     document.getElementById("stats").appendChild(stats.domElement);
     return stats;
 }
-
 function render() {
     // animate(house_obj.house);
     sun_orbit(spring_autumn_sun);
@@ -215,5 +214,6 @@ function render() {
     renderer.render(scene, camera);
 }
 
-init();
-render();
+// init();
+// render();
+

@@ -1,4 +1,5 @@
 #user {
+	background-image:url(maxresdefault.jpg);
     float: right;
     width: 25%;
 	height: 100%;
@@ -6,6 +7,12 @@
 	position: absolute;
 	left:75%;
 	top:0px;
+}
+font{
+	color:white;
+}
+#result{
+		color:white;
 }
 #threeJS {
 	float: left;
@@ -33,7 +40,7 @@ input {
     width: auto;
     height: auto;
 }
-#id{
+/* #id{
 	z-index: 1;
     padding: 10px 10px 5px;
     background: rgb(255, 0, 136);
@@ -46,4 +53,8 @@ input {
     text-align: center;
     box-shadow: 2px 2px 10px;
     border-radius: 5px;
+} */
+.season{
+	color:white;
+	background-color:green;
 }
