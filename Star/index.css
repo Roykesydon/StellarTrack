@@ -1,0 +1,14 @@
+#user{
+	float:right;
+	width:25%;
+	height:100%;
+}
+select{
+		text-align:center;
+		width:50%;
+		height:25%;
+}
+input{
+		width:45%;
+		height:25%;
+}
