@@ -16,7 +16,7 @@ class house {
         const ceil_material = new THREE.MeshStandardMaterial({
             color: 0x930000,
             roughness:1,
-            side: THREE.DoubleSide,
+            // side: THREE.DoubleSide,
         });
         ceil_geo.vertices.push(new THREE.Vector3(0, 3, 2.5));
         ceil_geo.vertices.push(new THREE.Vector3(0, 3, -2.5));
@@ -29,10 +29,10 @@ class house {
         ceil_geo.faces.push(new THREE.Face3(0, 2, 3));
         ceil_geo.faces.push(new THREE.Face3(1, 0, 3));
 
-        ceil_geo.faces.push(new THREE.Face3(0, 4, 5));
-        ceil_geo.faces.push(new THREE.Face3(1, 0, 5));
+        ceil_geo.faces.push(new THREE.Face3(0, 5, 4));
+        ceil_geo.faces.push(new THREE.Face3(0, 1, 5));
 
-        ceil_geo.faces.push(new THREE.Face3(0, 2, 4));
+        ceil_geo.faces.push(new THREE.Face3(2, 0, 4));
         ceil_geo.faces.push(new THREE.Face3(1, 3, 5));
 
         ceil_geo.faces.push(new THREE.Face3(2, 4, 5));
@@ -46,7 +46,7 @@ class house {
         let base_geo = new THREE.BoxGeometry(5, 5, 5);
         const base_material = new THREE.MeshPhongMaterial({
             color: 0xffa042,
-            side: THREE.DoubleSide,
+            // side: THREE.DoubleSide,
         });
         this.base = new THREE.Mesh(base_geo, base_material);
         this.base.position.set(0, -2.5, 0);
@@ -130,7 +130,9 @@ function sun_orbit(the_sun){
         rotateAngle_sas+=0.03;
     the_sun.position.z=33*Math.cos(rotateAngle_sas);
     the_sun.position.y=33*Math.sin(rotateAngle_sas);
-    light_sas.position.copy(the_sun.position);
+    // light_sas.position.copy(the_sun.position);
+    light_sas.position.z=31*Math.cos(rotateAngle_sas);
+    light_sas.position.y=31*Math.sin(rotateAngle_sas);
 }
 function init() {
     scene = new THREE.Scene();
@@ -163,7 +165,7 @@ function init() {
     light_sas = new THREE.PointLight(0xffffff,1,200);
     light_sas.castShadow=true;
     scene.add(light_sas);
-    spring_autumn_sun=create_sun(0.4,0xccffcc,0,0);
+    spring_autumn_sun=create_sun(2,0xFFDC35,0,0);
     scene.add(spring_autumn_sun);
     rotateAngle_sas=0;
 
