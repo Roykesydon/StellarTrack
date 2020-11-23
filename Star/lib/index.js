@@ -4,7 +4,7 @@ let orbit_camera, camera;
 let StatsUI;
 let spring_autumn_sun;
 let rotateAngle_sas;//spring_autumn_sun's rotateAngle
-let light_sas;
+let light_sas,out_light_sas;
 function animate(target) {
     target.rotation.x += 0.01;
     target.rotation.y += 0.01;
@@ -133,6 +133,9 @@ function sun_orbit(the_sun){
     // light_sas.position.copy(the_sun.position);
     light_sas.position.z=31*Math.cos(rotateAngle_sas);
     light_sas.position.y=31*Math.sin(rotateAngle_sas);
+
+    // out_light_sas.position.z=250*Math.cos(rotateAngle_sas);
+    // out_light_sas.position.y=250*Math.sin(rotateAngle_sas);
 }
 function init() {
     scene = new THREE.Scene();
@@ -162,6 +165,9 @@ function init() {
 
     //------------------light--------------
 
+    // out_light_sas = new THREE.PointLight(0xffffff,1,500);
+    // out_light_sas.castShadow=true;
+    // scene.add(out_light_sas);
     light_sas = new THREE.PointLight(0xffffff,1,200);
     light_sas.castShadow=true;
     scene.add(light_sas);
