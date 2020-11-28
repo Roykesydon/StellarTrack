@@ -1,4 +1,5 @@
 let line;
+let particles = [];
 let renderer, scene, container;
 let test_object, house_obj, plane;
 let orbit_camera, camera;
@@ -9,6 +10,30 @@ let light_sas, out_light_sas;
 function animate(target) {
     target.rotation.x += 0.01;
     target.rotation.y += 0.01;
+}
+//創建星空
+function makeParticles() {
+    let particle, material;
+    // 每一个位置加入一个随机的粒子
+    // z軸從-50~-30
+    for (let zpos = -15; zpos < -5; zpos += 0.5) {
+        // 創建粒子材質 顏色預設白(可修改)
+        material = new THREE.ParticleBasicMaterial({
+                color: 0xffffff,
+        });
+        for(let starNum=0;starNum<500;starNum++){
+            // 創建例子
+            particle = new THREE.Particle(material);
+            //x和y從-150~150
+            particle.position.x = Math.random() * 300 -150;
+            particle.position.y = Math.random() * 300 -150;
+            particle.position.z = zpos;
+            // 粒子邊長
+            particle.scale.x = particle.scale.y = 0.1;
+            scene.add(particle);  
+            particles.push(particle);
+        }
+    }
 }
 class house {
     constructor() {
@@ -633,9 +658,10 @@ function init() {
 
     let ambientLight = new THREE.AmbientLight(0x484891, 0.6);
     scene.add(ambientLight);
-
+    
     //^-----------------------------------------
     create_default_house(2,-17.5,-2)
+    makeParticles();
     // create_plane();
     create_circle_plane();
     // create_house(10, -12.5, 0);
