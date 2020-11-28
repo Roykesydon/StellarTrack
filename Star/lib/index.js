@@ -1,3 +1,4 @@
+let line;
 let renderer, scene, container;
 let test_object, house_obj, plane;
 let orbit_camera, camera;
@@ -62,7 +63,22 @@ class house {
         });
     }
 }
-
+function createline(x){
+    const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+    const points = [];
+    x1=50*(Math.cos(x /180* Math.PI));
+    x2=-50*(Math.cos(x /180* Math.PI));
+    y1=50*(Math.sin(x /180* Math.PI))-17.5;
+    y2=-50*(Math.sin(x/180* Math.PI))-17.5;
+    points.push( new THREE.Vector3( x1, y1, 0 ) );
+    points.push( new THREE.Vector3( x2, y2, 0 ) );
+    const geometry = new THREE.Geometry().setFromPoints( points );
+    line = new THREE.Line( geometry, material );
+    scene.add(line);
+}
+function remove_line(){
+    scene.remove(line);
+}
 function create_house(x = 0, y = 0, z = 0) {
     house_obj = new house();
     house_obj.house.position.set(x, y, z);
@@ -83,6 +99,7 @@ function create_circle_plane() {
 
     scene.add(circle_plane);
 }
+
 function create_ground() {
     //r=35
     const geometry = new THREE.SphereGeometry(
@@ -164,7 +181,6 @@ function init() {
     // orbit_camera.autoRotate=true;
 
     //------------------light--------------
-
     // out_light_sas = new THREE.PointLight(0xffffff,1,500);
     // out_light_sas.castShadow=true;
     // scene.add(out_light_sas);

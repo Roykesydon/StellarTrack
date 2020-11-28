@@ -1,4 +1,4 @@
-var flag;
+let flag;
 function disConutry(){
     flag=0;
     document.getElementById("choose1").style.display="none";
@@ -12,6 +12,7 @@ function disLoc(){
     document.getElementById("choose2").style.display="none";
 }
 function connect(){
+    remove_line();
     let country;
     let long;
     let la;
@@ -26,4 +27,5 @@ function connect(){
         document.getElementById("latitude").value="";
         document.getElementById("result").innerHTML=long+" "+la;
     }
+    createline(la);
 } 
