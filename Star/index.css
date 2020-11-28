@@ -1,5 +1,6 @@
 #user {
-    background-image:url(maxresdefault.jpg);
+	/* background-image:url(maxresdefault.jpg); */
+	background-color: #00000A;
     background-size:2000px;
     float: right;
     width: 25%;
@@ -43,5 +44,5 @@ input {
 }
 .season{
 	color:white;
-	background-color:green;
+	background-color:#222831;
 }
