@@ -11,7 +11,7 @@ function disLoc(){
     "<option value='America'>美國</option>"+"<option value='England'>英國</option>"+"<option value='Australia'>澳洲</option></select>";
     document.getElementById("choose2").style.display="none";
 }
-function B(){
+function connect(){
     let country;
     let long;
     let la;
@@ -22,6 +22,8 @@ function B(){
     else if(!flag) {
         long=parseInt(document.getElementById("longitude").value);
         la=parseInt(document.getElementById("latitude").value);
+        document.getElementById("longitude").value="";
+        document.getElementById("latitude").value="";
         document.getElementById("result").innerHTML=long+" "+la;
     }
 } 
