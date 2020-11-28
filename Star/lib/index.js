@@ -262,141 +262,25 @@ class default_house{
         this.door2.position.set(7, 3, -5);
         this.door2.rotation.y=Math.PI*0.5;
 
-        let glass1_geo = new THREE.BoxGeometry(2*scale_tmp, 3*scale_tmp, 0.3*scale_tmp);
-        const glass1_material = new THREE.MeshStandardMaterial({
+        let glass_geo = new THREE.BoxGeometry(2*scale_tmp, 3*scale_tmp, 0.3*scale_tmp);
+        const glass_material = new THREE.MeshStandardMaterial({
             color: 0xC4E1FF,
             roughness: 1,
             // side: THREE.DoubleSide,
         });
-        this.glass1 = new THREE.Mesh(glass1_geo, glass1_material);
-        this.glass1.position.set(-0.2, 5, 7.2);
-        this.glass1.rotation.y=Math.PI*0.5;
+        this.glass = new THREE.Mesh(glass_geo, glass_material);
+        this.glass.position.set(0, 20, 0);
+        this.glass.rotation.y=Math.PI*0.5;
         
-
-
-        let frame1_geo = new THREE.Geometry();
-        const frame1_material = new THREE.MeshStandardMaterial({
+        let frame_geo = new THREE.Geometry();
+        const frame_material = new THREE.MeshStandardMaterial({
             color: 0x844200,
             roughness: 1,
             // side: THREE.DoubleSide,
         });
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,0*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp, -3*scale_tmp,0*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,-3*scale_tmp,2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,2*scale_tmp))
-
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0.2*scale_tmp,-0.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp, -3.2*scale_tmp,-0.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,-3.2*scale_tmp,2.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0.2*scale_tmp,2.2*scale_tmp))
-
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0.2*scale_tmp,-0.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp, -3.2*scale_tmp,-0.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,-3.2*scale_tmp,2.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0.2*scale_tmp,2.2*scale_tmp))
-
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0*scale_tmp,0*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp, -3*scale_tmp,0*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,-3*scale_tmp,2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0*scale_tmp,2*scale_tmp))        
-
-        frame1_geo.faces.push(new THREE.Face3(0,5 ,4 ));
-        frame1_geo.faces.push(new THREE.Face3(1,5,0));
-        frame1_geo.faces.push(new THREE.Face3(6,5,1));
-        frame1_geo.faces.push(new THREE.Face3(6,1,2));
-        frame1_geo.faces.push(new THREE.Face3(6,2,7));
-        frame1_geo.faces.push(new THREE.Face3(2,3,7));
-        frame1_geo.faces.push(new THREE.Face3(3,4,7));
-        frame1_geo.faces.push(new THREE.Face3(3,0,4));
-
-        frame1_geo.faces.push(new THREE.Face3(14,15,3));
-        frame1_geo.faces.push(new THREE.Face3(2,14,3));
-        frame1_geo.faces.push(new THREE.Face3(14,2,1));
-        frame1_geo.faces.push(new THREE.Face3(1,13,14));
-        frame1_geo.faces.push(new THREE.Face3(1,0,13));
-        frame1_geo.faces.push(new THREE.Face3(13,0,12));
-        frame1_geo.faces.push(new THREE.Face3(0,3,12));
-        frame1_geo.faces.push(new THREE.Face3(3,15,12));
-
-        frame1_geo.faces.push(new THREE.Face3(10,6,7));
-        frame1_geo.faces.push(new THREE.Face3(10,7,11));
-        frame1_geo.faces.push(new THREE.Face3(7,8,11));
-        frame1_geo.faces.push(new THREE.Face3(7,4,8));
-        frame1_geo.faces.push(new THREE.Face3(6,10,9));
-        frame1_geo.faces.push(new THREE.Face3(5,6,9));
-        frame1_geo.faces.push(new THREE.Face3(8,4,5));
-        frame1_geo.faces.push(new THREE.Face3(9,8,5));
-
-        this.frame1 = new THREE.Mesh(frame1_geo, frame1_material);
-        this.frame1.position.set(0.3, 7.23, 5.5);
-
-        let glass2_geo = new THREE.BoxGeometry(2*scale_tmp, 3*scale_tmp, 0.3*scale_tmp);
-        const glass2_material = new THREE.MeshStandardMaterial({
-            color: 0xC4E1FF,
-            roughness: 1,
-            // side: THREE.DoubleSide,
-        });
-        this.glass2 = new THREE.Mesh(glass2_geo, glass2_material);
-        this.glass2.position.set(-0.2, 5, 13.2);
-        this.glass2.rotation.y=Math.PI*0.5;
-        
-
-
-        let frame2_geo = new THREE.Geometry();
-        const frame2_material = new THREE.MeshStandardMaterial({
-            color: 0x844200,
-            roughness: 1,
-            // side: THREE.DoubleSide,
-        });
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,0*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp, -3*scale_tmp,0*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,-3*scale_tmp,2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,2*scale_tmp))
-
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0.2*scale_tmp,-0.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp, -3.2*scale_tmp,-0.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,-3.2*scale_tmp,2.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0.2*scale_tmp,2.2*scale_tmp))
-
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0.2*scale_tmp,-0.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp, -3.2*scale_tmp,-0.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,-3.2*scale_tmp,2.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0.2*scale_tmp,2.2*scale_tmp))
-
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0*scale_tmp,0*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp, -3*scale_tmp,0*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,-3*scale_tmp,2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0*scale_tmp,2*scale_tmp))        
-
-        frame2_geo.faces.push(new THREE.Face3(0,5 ,4 ));
-        frame2_geo.faces.push(new THREE.Face3(1,5,0));
-        frame2_geo.faces.push(new THREE.Face3(6,5,1));
-        frame2_geo.faces.push(new THREE.Face3(6,1,2));
-        frame2_geo.faces.push(new THREE.Face3(6,2,7));
-        frame2_geo.faces.push(new THREE.Face3(2,3,7));
-        frame2_geo.faces.push(new THREE.Face3(3,4,7));
-        frame2_geo.faces.push(new THREE.Face3(3,0,4));
-
-        frame2_geo.faces.push(new THREE.Face3(14,15,3));
-        frame2_geo.faces.push(new THREE.Face3(2,14,3));
-        frame2_geo.faces.push(new THREE.Face3(14,2,1));
-        frame2_geo.faces.push(new THREE.Face3(1,13,14));
-        frame2_geo.faces.push(new THREE.Face3(1,0,13));
-        frame2_geo.faces.push(new THREE.Face3(13,0,12));
-        frame2_geo.faces.push(new THREE.Face3(0,3,12));
-        frame2_geo.faces.push(new THREE.Face3(3,15,12));
-
-        frame2_geo.faces.push(new THREE.Face3(10,6,7));
-        frame2_geo.faces.push(new THREE.Face3(10,7,11));
-        frame2_geo.faces.push(new THREE.Face3(7,8,11));
-        frame2_geo.faces.push(new THREE.Face3(7,4,8));
-        frame2_geo.faces.push(new THREE.Face3(6,10,9));
-        frame2_geo.faces.push(new THREE.Face3(5,6,9));
-        frame2_geo.faces.push(new THREE.Face3(8,4,5));
-        frame2_geo.faces.push(new THREE.Face3(9,8,5));
-
-        this.frame2 = new THREE.Mesh(frame2_geo, frame2_material);
-        this.frame2.position.set(0.3, 7.23, 11.5);
+        this.frame = new THREE.Mesh(frame_geo, frame_material);
+        this.frame.position.set(10, 20, 0);
+        this.frame.rotation.y=Math.PI*0.5;
 
 
         this.house = new THREE.Group();
@@ -405,10 +289,8 @@ class default_house{
         this.house.add(this.chimney);
         this.house.add(this.door1);
         this.house.add(this.door2);
-        this.house.add(this.glass1);
-        this.house.add(this.frame1);
-        this.house.add(this.frame2);
-        this.house.add(this.glass2);
+        this.house.add(this.glass);
+        this.house.add(this.frame);
         this.house.traverse(function (object) {
             if (object instanceof THREE.Mesh) {
                 object.castShadow = true;
@@ -635,7 +517,7 @@ function init() {
     scene.add(ambientLight);
 
     //^-----------------------------------------
-    create_default_house(2,-17.5,-2)
+    create_default_house()
     // create_plane();
     create_circle_plane();
     // create_house(10, -12.5, 0);
