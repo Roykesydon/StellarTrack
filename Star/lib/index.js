@@ -882,7 +882,7 @@ function create_taipei_house() {
                 object.position.z=3;
                 object.scale.set(0.4, 0.4, 0.4);
 
-                console.log("taipei18:40");
+                console.log("taipei18:49");
                 scene_house = object;
                 scene.add(scene_house);
             },
