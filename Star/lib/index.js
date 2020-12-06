@@ -898,7 +898,7 @@ function switch_day_light(){
     if(!sun_flag)return;
     if(sunObj.position.y>-17.5){
         scene.remove(daylight);
-        let tmp = new THREE.AmbientLight(0x66B3FF, 5*Math.sin(sun_rotation_angle));
+        let tmp = new THREE.AmbientLight(0x66B3FF, 3*Math.sin(sun_rotation_angle));
         daylight=tmp;
         scene.add(daylight);
     }
