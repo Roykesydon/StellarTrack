@@ -825,6 +825,14 @@ function sun_orbit(the_sun, the_light) {
     // out_light_sas.position.y=250*Math.sin(sun_rotation_angle);
 }
 function create_taipei_house(){
+    var onProgress = function ( xhr ) {
+        if ( xhr.lengthComputable ) {
+            var percentComplete = xhr.loaded / xhr.total * 100;
+            console.log( Math.round(percentComplete, 2) + '% downloaded' );
+        }
+    };
+    
+    var onError = function ( xhr ) { };
     let mtlLoader = new THREE.MTLLoader();
     mtlLoader.setPath('./building/');
     mtlLoader.load('tutorial.mtl', function(materials) {
