@@ -882,13 +882,6 @@ function create_taipei_house() {
                 object.position.z=3;
                 object.scale.set(0.4, 0.4, 0.4);
 
-                object.traverse( function ( child ) {
-                    if ( child.isMesh ) child.material = new THREE.MeshStandardMaterial({
-                      metalness: 0.2,
-                      roughness: 1,
-                    });
-                  } );
-
                 console.log("taipei18:12");
                 scene_house = object;
                 scene.add(scene_house);
