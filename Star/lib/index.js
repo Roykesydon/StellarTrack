@@ -7,6 +7,12 @@ let StatsUI;
 let spring_autumn_sun;
 let rotateAngle_sas; //spring_autumn_sun's rotateAngle
 let light_sas, out_light_sas;
+let sun_flag = 0;
+let sunObj, sun_light;
+let sun_rotation_angle;
+let sun_la;
+let sun_season = 0;
+let scene_house;
 function animate(target) {
     target.rotation.x += 0.01;
     target.rotation.y += 0.01;
@@ -19,18 +25,18 @@ function makeParticles() {
     for (let zpos = -15; zpos < -5; zpos += 0.5) {
         // 創建粒子材質 顏色預設白(可修改)
         material = new THREE.ParticleBasicMaterial({
-                color: 0xffffff,
+            color: 0xffffff,
         });
-        for(let starNum=0;starNum<500;starNum++){
+        for (let starNum = 0; starNum < 500; starNum++) {
             // 創建例子
             particle = new THREE.Particle(material);
             //x和y從-150~150
-            particle.position.x = Math.random() * 300 -150;
-            particle.position.y = Math.random() * 300 -150;
+            particle.position.x = Math.random() * 300 - 150;
+            particle.position.y = Math.random() * 300 - 150;
             particle.position.z = zpos;
             // 粒子邊長
             particle.scale.x = particle.scale.y = 0.1;
-            scene.add(particle);  
+            scene.add(particle);
             particles.push(particle);
         }
     }
@@ -88,36 +94,69 @@ class house {
         });
     }
 }
-class default_house{
+class default_house {
     constructor() {
         let main_geo = new THREE.Geometry();
 
         const main_material = new THREE.MeshStandardMaterial({
-            color: 0xDDDDDD,
+            color: 0xdddddd,
             roughness: 1,
             // side: THREE.DoubleSide,
         });
         const scale_tmp = 1.5;
 
-        main_geo.vertices.push(new THREE.Vector3(5*scale_tmp,0*scale_tmp,-7*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(-7*scale_tmp,0*scale_tmp,-7*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(-7*scale_tmp,0*scale_tmp,12*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,12*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,0*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(5*scale_tmp,0*scale_tmp,0*scale_tmp))
+        main_geo.vertices.push(
+            new THREE.Vector3(5 * scale_tmp, 0 * scale_tmp, -7 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(-7 * scale_tmp, 0 * scale_tmp, -7 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(-7 * scale_tmp, 0 * scale_tmp, 12 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0 * scale_tmp, 12 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0 * scale_tmp, 0 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(5 * scale_tmp, 0 * scale_tmp, 0 * scale_tmp)
+        );
 
-        main_geo.vertices.push(new THREE.Vector3(5*scale_tmp,7*scale_tmp,-7*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(-7*scale_tmp,7*scale_tmp,-7*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(-7*scale_tmp,7*scale_tmp,12*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(0*scale_tmp,7*scale_tmp,12*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(0*scale_tmp,7*scale_tmp,0*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(5*scale_tmp,7*scale_tmp,0*scale_tmp))
+        main_geo.vertices.push(
+            new THREE.Vector3(5 * scale_tmp, 7 * scale_tmp, -7 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(-7 * scale_tmp, 7 * scale_tmp, -7 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(-7 * scale_tmp, 7 * scale_tmp, 12 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 7 * scale_tmp, 12 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 7 * scale_tmp, 0 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(5 * scale_tmp, 7 * scale_tmp, 0 * scale_tmp)
+        );
 
-        main_geo.vertices.push(new THREE.Vector3(5*scale_tmp,11*scale_tmp,-3.5*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(-3.5*scale_tmp,11*scale_tmp,-3.5*scale_tmp))
-        main_geo.vertices.push(new THREE.Vector3(-3.5*scale_tmp,11*scale_tmp,12*scale_tmp))
+        main_geo.vertices.push(
+            new THREE.Vector3(5 * scale_tmp, 11 * scale_tmp, -3.5 * scale_tmp)
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(
+                -3.5 * scale_tmp,
+                11 * scale_tmp,
+                -3.5 * scale_tmp
+            )
+        );
+        main_geo.vertices.push(
+            new THREE.Vector3(-3.5 * scale_tmp, 11 * scale_tmp, 12 * scale_tmp)
+        );
 
-        
         main_geo.faces.push(new THREE.Face3(0, 6, 11));
         main_geo.faces.push(new THREE.Face3(0, 11, 5));
 
@@ -127,14 +166,14 @@ class default_house{
         main_geo.faces.push(new THREE.Face3(1, 8, 7));
         main_geo.faces.push(new THREE.Face3(1, 2, 8));
 
-        main_geo.faces.push(new THREE.Face3(9,8 ,2 ));
-        main_geo.faces.push(new THREE.Face3(3, 9,2 ));
+        main_geo.faces.push(new THREE.Face3(9, 8, 2));
+        main_geo.faces.push(new THREE.Face3(3, 9, 2));
 
-        main_geo.faces.push(new THREE.Face3(3,10 ,9 ));
+        main_geo.faces.push(new THREE.Face3(3, 10, 9));
         main_geo.faces.push(new THREE.Face3(3, 4, 10));
 
-        main_geo.faces.push(new THREE.Face3(4,11 ,10 ));
-        main_geo.faces.push(new THREE.Face3(4,5 ,11 ));
+        main_geo.faces.push(new THREE.Face3(4, 11, 10));
+        main_geo.faces.push(new THREE.Face3(4, 5, 11));
 
         main_geo.faces.push(new THREE.Face3(6, 12, 11));
 
@@ -146,7 +185,7 @@ class default_house{
         main_geo.faces.push(new THREE.Face3(13, 7, 8));
         main_geo.faces.push(new THREE.Face3(13, 8, 14));
 
-        main_geo.faces.push(new THREE.Face3(9,13 ,14 ));
+        main_geo.faces.push(new THREE.Face3(9, 13, 14));
         main_geo.faces.push(new THREE.Face3(9, 10, 13));
 
         main_geo.faces.push(new THREE.Face3(12, 13, 10));
@@ -160,7 +199,6 @@ class default_house{
         this.main = new THREE.Mesh(main_geo, main_material);
         this.main.position.set(0, 0, 0);
 
-
         let main_ceil_geo = new THREE.Geometry();
         const main_ceil_material = new THREE.MeshStandardMaterial({
             color: 0x880000,
@@ -168,23 +206,46 @@ class default_house{
             // side: THREE.DoubleSide,
         });
 
-        main_ceil_geo.vertices.push(new THREE.Vector3(6*scale_tmp,6*scale_tmp,-8*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(6*scale_tmp, 6*scale_tmp,-9*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(5*scale_tmp,11*scale_tmp,-3.5*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(5*scale_tmp,12*scale_tmp,-3.5*scale_tmp))
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(6 * scale_tmp, 6 * scale_tmp, -8 * scale_tmp)
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(6 * scale_tmp, 6 * scale_tmp, -9 * scale_tmp)
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(5 * scale_tmp, 11 * scale_tmp, -3.5 * scale_tmp)
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(5 * scale_tmp, 12 * scale_tmp, -3.5 * scale_tmp)
+        );
 
         main_ceil_geo.faces.push(new THREE.Face3(0, 1, 2));
         main_ceil_geo.faces.push(new THREE.Face3(1, 3, 2));
 
-        main_ceil_geo.vertices.push(new THREE.Vector3(6*scale_tmp,6*scale_tmp,1*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(6*scale_tmp, 6*scale_tmp,2*scale_tmp))
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(6 * scale_tmp, 6 * scale_tmp, 1 * scale_tmp)
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(6 * scale_tmp, 6 * scale_tmp, 2 * scale_tmp)
+        );
 
         main_ceil_geo.faces.push(new THREE.Face3(4, 2, 5));
         main_ceil_geo.faces.push(new THREE.Face3(2, 3, 5));
 
-
-        main_ceil_geo.vertices.push(new THREE.Vector3(-3.5*scale_tmp,11*scale_tmp,-3.5*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(-3.5*scale_tmp, 12*scale_tmp,-3.5*scale_tmp))
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(
+                -3.5 * scale_tmp,
+                11 * scale_tmp,
+                -3.5 * scale_tmp
+            )
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(
+                -3.5 * scale_tmp,
+                12 * scale_tmp,
+                -3.5 * scale_tmp
+            )
+        );
 
         main_ceil_geo.faces.push(new THREE.Face3(0, 2, 6));
         main_ceil_geo.faces.push(new THREE.Face3(4, 6, 2));
@@ -192,22 +253,29 @@ class default_house{
         main_ceil_geo.faces.push(new THREE.Face3(1, 7, 3));
         main_ceil_geo.faces.push(new THREE.Face3(5, 3, 7));
 
-        main_ceil_geo.vertices.push(new THREE.Vector3(-8*scale_tmp,6*scale_tmp,-8*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(-9*scale_tmp,6*scale_tmp,-9*scale_tmp))
-        
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(-8 * scale_tmp, 6 * scale_tmp, -8 * scale_tmp)
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(-9 * scale_tmp, 6 * scale_tmp, -9 * scale_tmp)
+        );
 
         main_ceil_geo.faces.push(new THREE.Face3(8, 1, 0));
         main_ceil_geo.faces.push(new THREE.Face3(9, 1, 8));
- 
+
         main_ceil_geo.faces.push(new THREE.Face3(9, 7, 1));
 
         main_ceil_geo.faces.push(new THREE.Face3(0, 6, 8));
 
-        main_ceil_geo.vertices.push(new THREE.Vector3(-8*scale_tmp,6*scale_tmp,13*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(-9*scale_tmp,6*scale_tmp,13*scale_tmp))    
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(-8 * scale_tmp, 6 * scale_tmp, 13 * scale_tmp)
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(-9 * scale_tmp, 6 * scale_tmp, 13 * scale_tmp)
+        );
 
         main_ceil_geo.faces.push(new THREE.Face3(10, 9, 8));
-        main_ceil_geo.faces.push(new THREE.Face3(11,9 ,10 ));
+        main_ceil_geo.faces.push(new THREE.Face3(11, 9, 10));
 
         main_ceil_geo.faces.push(new THREE.Face3(11, 7, 9));
         main_ceil_geo.faces.push(new THREE.Face3(10, 6, 8));
@@ -215,8 +283,12 @@ class default_house{
         main_ceil_geo.faces.push(new THREE.Face3(10, 11, 9));
         main_ceil_geo.faces.push(new THREE.Face3(10, 9, 8));
 
-        main_ceil_geo.vertices.push(new THREE.Vector3(-3.5*scale_tmp,11*scale_tmp,12*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(-3.5*scale_tmp,12*scale_tmp,12*scale_tmp))
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(-3.5 * scale_tmp, 11 * scale_tmp, 12 * scale_tmp)
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(-3.5 * scale_tmp, 12 * scale_tmp, 12 * scale_tmp)
+        );
 
         main_ceil_geo.faces.push(new THREE.Face3(12, 11, 10));
         main_ceil_geo.faces.push(new THREE.Face3(13, 11, 12));
@@ -226,8 +298,12 @@ class default_house{
 
         main_ceil_geo.faces.push(new THREE.Face3(13, 7, 11));
 
-        main_ceil_geo.vertices.push(new THREE.Vector3(1*scale_tmp,6*scale_tmp,13*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(2*scale_tmp,6*scale_tmp,13*scale_tmp))
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(1 * scale_tmp, 6 * scale_tmp, 13 * scale_tmp)
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(2 * scale_tmp, 6 * scale_tmp, 13 * scale_tmp)
+        );
 
         main_ceil_geo.faces.push(new THREE.Face3(15, 13, 14));
         main_ceil_geo.faces.push(new THREE.Face3(14, 13, 12));
@@ -235,40 +311,49 @@ class default_house{
         main_ceil_geo.faces.push(new THREE.Face3(14, 12, 6));
         main_ceil_geo.faces.push(new THREE.Face3(15, 7, 13));
 
-        main_ceil_geo.vertices.push(new THREE.Vector3(1*scale_tmp,6*scale_tmp,1*scale_tmp))
-        main_ceil_geo.vertices.push(new THREE.Vector3(2*scale_tmp,6*scale_tmp,2*scale_tmp))
-
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(1 * scale_tmp, 6 * scale_tmp, 1 * scale_tmp)
+        );
+        main_ceil_geo.vertices.push(
+            new THREE.Vector3(2 * scale_tmp, 6 * scale_tmp, 2 * scale_tmp)
+        );
 
         main_ceil_geo.faces.push(new THREE.Face3(15, 17, 7));
 
         main_ceil_geo.faces.push(new THREE.Face3(17, 15, 14));
-        main_ceil_geo.faces.push(new THREE.Face3(17, 14, 16));       
+        main_ceil_geo.faces.push(new THREE.Face3(17, 14, 16));
 
         main_ceil_geo.faces.push(new THREE.Face3(5, 7, 17));
- 
-        main_ceil_geo.faces.push(new THREE.Face3(5, 17, 16));
-        main_ceil_geo.faces.push(new THREE.Face3(4, 5, 16)); 
 
+        main_ceil_geo.faces.push(new THREE.Face3(5, 17, 16));
+        main_ceil_geo.faces.push(new THREE.Face3(4, 5, 16));
 
         main_ceil_geo.faces.push(new THREE.Face3(14, 6, 16));
-        main_ceil_geo.faces.push(new THREE.Face3(4, 16, 6));  
+        main_ceil_geo.faces.push(new THREE.Face3(4, 16, 6));
 
         main_ceil_geo.computeFaceNormals();
         main_ceil_geo.computeVertexNormals();
         this.main_ceil = new THREE.Mesh(main_ceil_geo, main_ceil_material);
         this.main_ceil.position.set(0, 0, 0);
 
-
-        let chimney_geo = new THREE.BoxGeometry(2.3*scale_tmp, 5*scale_tmp, 2.5*scale_tmp);
+        let chimney_geo = new THREE.BoxGeometry(
+            2.3 * scale_tmp,
+            5 * scale_tmp,
+            2.5 * scale_tmp
+        );
         const chimney_material = new THREE.MeshStandardMaterial({
-            color: 0xDDDDDD,
+            color: 0xdddddd,
             roughness: 1,
             // side: THREE.DoubleSide,
         });
         this.chimney = new THREE.Mesh(chimney_geo, chimney_material);
         this.chimney.position.set(-8, 15, 10);
 
-        let door1_geo = new THREE.BoxGeometry(2*scale_tmp, 5*scale_tmp, 1*scale_tmp);
+        let door1_geo = new THREE.BoxGeometry(
+            2 * scale_tmp,
+            5 * scale_tmp,
+            1 * scale_tmp
+        );
         const door1_material = new THREE.MeshStandardMaterial({
             color: 0x844200,
             roughness: 1,
@@ -277,7 +362,11 @@ class default_house{
         this.door1 = new THREE.Mesh(door1_geo, door1_material);
         this.door1.position.set(-5, 3.5, 17.6);
 
-        let door2_geo = new THREE.BoxGeometry(2*scale_tmp, 5*scale_tmp, 1*scale_tmp);
+        let door2_geo = new THREE.BoxGeometry(
+            2 * scale_tmp,
+            5 * scale_tmp,
+            1 * scale_tmp
+        );
         const door2_material = new THREE.MeshStandardMaterial({
             color: 0x844200,
             roughness: 1,
@@ -285,19 +374,21 @@ class default_house{
         });
         this.door2 = new THREE.Mesh(door2_geo, door2_material);
         this.door2.position.set(7, 3, -5);
-        this.door2.rotation.y=Math.PI*0.5;
+        this.door2.rotation.y = Math.PI * 0.5;
 
-        let glass1_geo = new THREE.BoxGeometry(2*scale_tmp, 3*scale_tmp, 0.3*scale_tmp);
+        let glass1_geo = new THREE.BoxGeometry(
+            2 * scale_tmp,
+            3 * scale_tmp,
+            0.3 * scale_tmp
+        );
         const glass1_material = new THREE.MeshStandardMaterial({
-            color: 0xC4E1FF,
+            color: 0xc4e1ff,
             roughness: 1,
             // side: THREE.DoubleSide,
         });
         this.glass1 = new THREE.Mesh(glass1_geo, glass1_material);
         this.glass1.position.set(-0.2, 5, 7.2);
-        this.glass1.rotation.y=Math.PI*0.5;
-        
-
+        this.glass1.rotation.y = Math.PI * 0.5;
 
         let frame1_geo = new THREE.Geometry();
         const frame1_material = new THREE.MeshStandardMaterial({
@@ -305,67 +396,117 @@ class default_house{
             roughness: 1,
             // side: THREE.DoubleSide,
         });
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,0*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp, -3*scale_tmp,0*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,-3*scale_tmp,2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,2*scale_tmp))
+        frame1_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0 * scale_tmp, 0 * scale_tmp)
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, -3 * scale_tmp, 0 * scale_tmp)
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, -3 * scale_tmp, 2 * scale_tmp)
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0 * scale_tmp, 2 * scale_tmp)
+        );
 
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0.2*scale_tmp,-0.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp, -3.2*scale_tmp,-0.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,-3.2*scale_tmp,2.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0.2*scale_tmp,2.2*scale_tmp))
+        frame1_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0.2 * scale_tmp, -0.2 * scale_tmp)
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, -3.2 * scale_tmp, -0.2 * scale_tmp)
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, -3.2 * scale_tmp, 2.2 * scale_tmp)
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0.2 * scale_tmp, 2.2 * scale_tmp)
+        );
 
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0.2*scale_tmp,-0.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp, -3.2*scale_tmp,-0.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,-3.2*scale_tmp,2.2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0.2*scale_tmp,2.2*scale_tmp))
+        frame1_geo.vertices.push(
+            new THREE.Vector3(
+                -0.5 * scale_tmp,
+                0.2 * scale_tmp,
+                -0.2 * scale_tmp
+            )
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(
+                -0.5 * scale_tmp,
+                -3.2 * scale_tmp,
+                -0.2 * scale_tmp
+            )
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(
+                -0.5 * scale_tmp,
+                -3.2 * scale_tmp,
+                2.2 * scale_tmp
+            )
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(
+                -0.5 * scale_tmp,
+                0.2 * scale_tmp,
+                2.2 * scale_tmp
+            )
+        );
 
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0*scale_tmp,0*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp, -3*scale_tmp,0*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,-3*scale_tmp,2*scale_tmp))
-        frame1_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0*scale_tmp,2*scale_tmp))        
+        frame1_geo.vertices.push(
+            new THREE.Vector3(-0.5 * scale_tmp, 0 * scale_tmp, 0 * scale_tmp)
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(-0.5 * scale_tmp, -3 * scale_tmp, 0 * scale_tmp)
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(-0.5 * scale_tmp, -3 * scale_tmp, 2 * scale_tmp)
+        );
+        frame1_geo.vertices.push(
+            new THREE.Vector3(-0.5 * scale_tmp, 0 * scale_tmp, 2 * scale_tmp)
+        );
 
-        frame1_geo.faces.push(new THREE.Face3(0,5 ,4 ));
-        frame1_geo.faces.push(new THREE.Face3(1,5,0));
-        frame1_geo.faces.push(new THREE.Face3(6,5,1));
-        frame1_geo.faces.push(new THREE.Face3(6,1,2));
-        frame1_geo.faces.push(new THREE.Face3(6,2,7));
-        frame1_geo.faces.push(new THREE.Face3(2,3,7));
-        frame1_geo.faces.push(new THREE.Face3(3,4,7));
-        frame1_geo.faces.push(new THREE.Face3(3,0,4));
+        frame1_geo.faces.push(new THREE.Face3(0, 5, 4));
+        frame1_geo.faces.push(new THREE.Face3(1, 5, 0));
+        frame1_geo.faces.push(new THREE.Face3(6, 5, 1));
+        frame1_geo.faces.push(new THREE.Face3(6, 1, 2));
+        frame1_geo.faces.push(new THREE.Face3(6, 2, 7));
+        frame1_geo.faces.push(new THREE.Face3(2, 3, 7));
+        frame1_geo.faces.push(new THREE.Face3(3, 4, 7));
+        frame1_geo.faces.push(new THREE.Face3(3, 0, 4));
 
-        frame1_geo.faces.push(new THREE.Face3(14,15,3));
-        frame1_geo.faces.push(new THREE.Face3(2,14,3));
-        frame1_geo.faces.push(new THREE.Face3(14,2,1));
-        frame1_geo.faces.push(new THREE.Face3(1,13,14));
-        frame1_geo.faces.push(new THREE.Face3(1,0,13));
-        frame1_geo.faces.push(new THREE.Face3(13,0,12));
-        frame1_geo.faces.push(new THREE.Face3(0,3,12));
-        frame1_geo.faces.push(new THREE.Face3(3,15,12));
+        frame1_geo.faces.push(new THREE.Face3(14, 15, 3));
+        frame1_geo.faces.push(new THREE.Face3(2, 14, 3));
+        frame1_geo.faces.push(new THREE.Face3(14, 2, 1));
+        frame1_geo.faces.push(new THREE.Face3(1, 13, 14));
+        frame1_geo.faces.push(new THREE.Face3(1, 0, 13));
+        frame1_geo.faces.push(new THREE.Face3(13, 0, 12));
+        frame1_geo.faces.push(new THREE.Face3(0, 3, 12));
+        frame1_geo.faces.push(new THREE.Face3(3, 15, 12));
 
-        frame1_geo.faces.push(new THREE.Face3(10,6,7));
-        frame1_geo.faces.push(new THREE.Face3(10,7,11));
-        frame1_geo.faces.push(new THREE.Face3(7,8,11));
-        frame1_geo.faces.push(new THREE.Face3(7,4,8));
-        frame1_geo.faces.push(new THREE.Face3(6,10,9));
-        frame1_geo.faces.push(new THREE.Face3(5,6,9));
-        frame1_geo.faces.push(new THREE.Face3(8,4,5));
-        frame1_geo.faces.push(new THREE.Face3(9,8,5));
+        frame1_geo.faces.push(new THREE.Face3(10, 6, 7));
+        frame1_geo.faces.push(new THREE.Face3(10, 7, 11));
+        frame1_geo.faces.push(new THREE.Face3(7, 8, 11));
+        frame1_geo.faces.push(new THREE.Face3(7, 4, 8));
+        frame1_geo.faces.push(new THREE.Face3(6, 10, 9));
+        frame1_geo.faces.push(new THREE.Face3(5, 6, 9));
+        frame1_geo.faces.push(new THREE.Face3(8, 4, 5));
+        frame1_geo.faces.push(new THREE.Face3(9, 8, 5));
 
         this.frame1 = new THREE.Mesh(frame1_geo, frame1_material);
         this.frame1.position.set(0.3, 7.23, 5.5);
 
-        let glass2_geo = new THREE.BoxGeometry(2*scale_tmp, 3*scale_tmp, 0.3*scale_tmp);
+        let glass2_geo = new THREE.BoxGeometry(
+            2 * scale_tmp,
+            3 * scale_tmp,
+            0.3 * scale_tmp
+        );
         const glass2_material = new THREE.MeshStandardMaterial({
-            color: 0xC4E1FF,
+            color: 0xc4e1ff,
             roughness: 1,
             // side: THREE.DoubleSide,
         });
         this.glass2 = new THREE.Mesh(glass2_geo, glass2_material);
         this.glass2.position.set(-0.2, 5, 13.2);
-        this.glass2.rotation.y=Math.PI*0.5;
-        
-
+        this.glass2.rotation.y = Math.PI * 0.5;
 
         let frame2_geo = new THREE.Geometry();
         const frame2_material = new THREE.MeshStandardMaterial({
@@ -373,56 +514,103 @@ class default_house{
             roughness: 1,
             // side: THREE.DoubleSide,
         });
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,0*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp, -3*scale_tmp,0*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,-3*scale_tmp,2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0*scale_tmp,2*scale_tmp))
+        frame2_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0 * scale_tmp, 0 * scale_tmp)
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, -3 * scale_tmp, 0 * scale_tmp)
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, -3 * scale_tmp, 2 * scale_tmp)
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0 * scale_tmp, 2 * scale_tmp)
+        );
 
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0.2*scale_tmp,-0.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp, -3.2*scale_tmp,-0.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,-3.2*scale_tmp,2.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(0*scale_tmp,0.2*scale_tmp,2.2*scale_tmp))
+        frame2_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0.2 * scale_tmp, -0.2 * scale_tmp)
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, -3.2 * scale_tmp, -0.2 * scale_tmp)
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, -3.2 * scale_tmp, 2.2 * scale_tmp)
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(0 * scale_tmp, 0.2 * scale_tmp, 2.2 * scale_tmp)
+        );
 
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0.2*scale_tmp,-0.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp, -3.2*scale_tmp,-0.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,-3.2*scale_tmp,2.2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0.2*scale_tmp,2.2*scale_tmp))
+        frame2_geo.vertices.push(
+            new THREE.Vector3(
+                -0.5 * scale_tmp,
+                0.2 * scale_tmp,
+                -0.2 * scale_tmp
+            )
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(
+                -0.5 * scale_tmp,
+                -3.2 * scale_tmp,
+                -0.2 * scale_tmp
+            )
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(
+                -0.5 * scale_tmp,
+                -3.2 * scale_tmp,
+                2.2 * scale_tmp
+            )
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(
+                -0.5 * scale_tmp,
+                0.2 * scale_tmp,
+                2.2 * scale_tmp
+            )
+        );
 
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0*scale_tmp,0*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp, -3*scale_tmp,0*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,-3*scale_tmp,2*scale_tmp))
-        frame2_geo.vertices.push(new THREE.Vector3(-0.5*scale_tmp,0*scale_tmp,2*scale_tmp))        
+        frame2_geo.vertices.push(
+            new THREE.Vector3(-0.5 * scale_tmp, 0 * scale_tmp, 0 * scale_tmp)
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(-0.5 * scale_tmp, -3 * scale_tmp, 0 * scale_tmp)
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(-0.5 * scale_tmp, -3 * scale_tmp, 2 * scale_tmp)
+        );
+        frame2_geo.vertices.push(
+            new THREE.Vector3(-0.5 * scale_tmp, 0 * scale_tmp, 2 * scale_tmp)
+        );
 
-        frame2_geo.faces.push(new THREE.Face3(0,5 ,4 ));
-        frame2_geo.faces.push(new THREE.Face3(1,5,0));
-        frame2_geo.faces.push(new THREE.Face3(6,5,1));
-        frame2_geo.faces.push(new THREE.Face3(6,1,2));
-        frame2_geo.faces.push(new THREE.Face3(6,2,7));
-        frame2_geo.faces.push(new THREE.Face3(2,3,7));
-        frame2_geo.faces.push(new THREE.Face3(3,4,7));
-        frame2_geo.faces.push(new THREE.Face3(3,0,4));
+        frame2_geo.faces.push(new THREE.Face3(0, 5, 4));
+        frame2_geo.faces.push(new THREE.Face3(1, 5, 0));
+        frame2_geo.faces.push(new THREE.Face3(6, 5, 1));
+        frame2_geo.faces.push(new THREE.Face3(6, 1, 2));
+        frame2_geo.faces.push(new THREE.Face3(6, 2, 7));
+        frame2_geo.faces.push(new THREE.Face3(2, 3, 7));
+        frame2_geo.faces.push(new THREE.Face3(3, 4, 7));
+        frame2_geo.faces.push(new THREE.Face3(3, 0, 4));
 
-        frame2_geo.faces.push(new THREE.Face3(14,15,3));
-        frame2_geo.faces.push(new THREE.Face3(2,14,3));
-        frame2_geo.faces.push(new THREE.Face3(14,2,1));
-        frame2_geo.faces.push(new THREE.Face3(1,13,14));
-        frame2_geo.faces.push(new THREE.Face3(1,0,13));
-        frame2_geo.faces.push(new THREE.Face3(13,0,12));
-        frame2_geo.faces.push(new THREE.Face3(0,3,12));
-        frame2_geo.faces.push(new THREE.Face3(3,15,12));
+        frame2_geo.faces.push(new THREE.Face3(14, 15, 3));
+        frame2_geo.faces.push(new THREE.Face3(2, 14, 3));
+        frame2_geo.faces.push(new THREE.Face3(14, 2, 1));
+        frame2_geo.faces.push(new THREE.Face3(1, 13, 14));
+        frame2_geo.faces.push(new THREE.Face3(1, 0, 13));
+        frame2_geo.faces.push(new THREE.Face3(13, 0, 12));
+        frame2_geo.faces.push(new THREE.Face3(0, 3, 12));
+        frame2_geo.faces.push(new THREE.Face3(3, 15, 12));
 
-        frame2_geo.faces.push(new THREE.Face3(10,6,7));
-        frame2_geo.faces.push(new THREE.Face3(10,7,11));
-        frame2_geo.faces.push(new THREE.Face3(7,8,11));
-        frame2_geo.faces.push(new THREE.Face3(7,4,8));
-        frame2_geo.faces.push(new THREE.Face3(6,10,9));
-        frame2_geo.faces.push(new THREE.Face3(5,6,9));
-        frame2_geo.faces.push(new THREE.Face3(8,4,5));
-        frame2_geo.faces.push(new THREE.Face3(9,8,5));
+        frame2_geo.faces.push(new THREE.Face3(10, 6, 7));
+        frame2_geo.faces.push(new THREE.Face3(10, 7, 11));
+        frame2_geo.faces.push(new THREE.Face3(7, 8, 11));
+        frame2_geo.faces.push(new THREE.Face3(7, 4, 8));
+        frame2_geo.faces.push(new THREE.Face3(6, 10, 9));
+        frame2_geo.faces.push(new THREE.Face3(5, 6, 9));
+        frame2_geo.faces.push(new THREE.Face3(8, 4, 5));
+        frame2_geo.faces.push(new THREE.Face3(9, 8, 5));
 
         this.frame2 = new THREE.Mesh(frame2_geo, frame2_material);
         this.frame2.position.set(0.3, 7.23, 11.5);
-
 
         this.house = new THREE.Group();
         this.house.add(this.main);
@@ -510,20 +698,20 @@ class north_pointer {
     }
 }
 
-function createline(x){
-    const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+function createline(x) {
+    const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
     const points = [];
-    x1=50*(Math.cos(x /180* Math.PI));
-    x2=-50*(Math.cos(x /180* Math.PI));
-    y1=50*(Math.sin(x /180* Math.PI))-17.5;
-    y2=-50*(Math.sin(x/180* Math.PI))-17.5;
-    points.push( new THREE.Vector3( x1, y1, 0 ) );
-    points.push( new THREE.Vector3( x2, y2, 0 ) );
-    const geometry = new THREE.Geometry().setFromPoints( points );
-    line = new THREE.Line( geometry, material );
+    x1 = 50 * Math.cos((x / 180) * Math.PI);
+    x2 = -50 * Math.cos((x / 180) * Math.PI);
+    y1 = 50 * Math.sin((x / 180) * Math.PI) - 17.5;
+    y2 = -50 * Math.sin((x / 180) * Math.PI) - 17.5;
+    points.push(new THREE.Vector3(x1, y1, 0));
+    points.push(new THREE.Vector3(x2, y2, 0));
+    const geometry = new THREE.Geometry().setFromPoints(points);
+    line = new THREE.Line(geometry, material);
     scene.add(line);
 }
-function remove_line(){
+function remove_line() {
     scene.remove(line);
 }
 function create_house(x = 0, y = 0, z = 0) {
@@ -531,11 +719,14 @@ function create_house(x = 0, y = 0, z = 0) {
     house_obj.house.position.set(x, y, z);
     scene.add(house_obj.house);
 }
-
+function remove_house() {
+    scene.remove(scene_house);
+}
 function create_default_house(x = 0, y = 0, z = 0) {
     house_obj = new default_house();
     house_obj.house.position.set(x, y, z);
-    scene.add(house_obj.house);
+    scene_house=house_obj.house;
+    scene.add(scene_house);
 }
 function create_pointer(x = 0, y = 0, z = 0) {
     pointer_obj = new north_pointer();
@@ -546,7 +737,7 @@ function create_circle_plane() {
     //r=35
     const planeGeometry = new THREE.CircleGeometry(35, 40);
     const planeMaterial = new THREE.MeshPhongMaterial({
-        color: 0x01814A,
+        color: 0x01814a,
         roughness: 1,
         side: THREE.DoubleSide,
     });
@@ -590,27 +781,93 @@ function create_pack_space() {
     space.position.set(0, 0, 0);
     return space;
 }
-function create_sun(sun_size, sun_color, x, y) {
+function remove_sun() {
+    scene.remove(sunObj);
+    scene.remove(sun_light);
+    sun_flag = 0;
+}
+function sun_orbit(the_sun, the_light) {
+    if (!sun_flag) return;
+
+    if (sun_rotation_angle > 2 * Math.PI) sun_rotation_angle = 0;
+    else sun_rotation_angle += 0.03;
+    the_sun.position.z = 27 * Math.cos(sun_rotation_angle);
+    the_sun.position.y =
+        27 * Math.sin(sun_rotation_angle) * Math.cos((sun_la / 180) * Math.PI) -
+        17.5;
+    // light_sas.position.copy(the_sun.position);
+    the_light.position.z = 25 * Math.cos(sun_rotation_angle);
+    the_light.position.y =
+        25 * Math.sin(sun_rotation_angle) * Math.cos((sun_la / 180) * Math.PI) -
+        17.5;
+    the_sun.position.x =
+        -27 * Math.sin(sun_rotation_angle) * Math.sin((sun_la / 180) * Math.PI);
+    the_light.position.x =
+        -25 * Math.sin(sun_rotation_angle) * Math.sin((sun_la / 180) * Math.PI);
+    // the_sun.position.x = -27 * Math.sin(sun_rotation_angle);
+    // the_light.position.x = -25 * Math.sin(sun_rotation_angle);
+    if (sun_season == 1) {
+        console.log("summer");
+        the_sun.position.x += 10 * Math.cos((sun_la / 180) * Math.PI);
+        the_sun.position.y += 10 * Math.sin((sun_la / 180) * Math.PI);
+        the_light.position.x += 10 * Math.cos((sun_la / 180) * Math.PI);
+        the_light.position.y += 10 * Math.sin((sun_la / 180) * Math.PI);
+    }
+    if (sun_season == 2) {
+        console.log("winter");
+        the_sun.position.x -= 10 * Math.cos((sun_la / 180) * Math.PI);
+        the_sun.position.y -= 10 * Math.sin((sun_la / 180) * Math.PI);
+        the_light.position.x -= 10 * Math.cos((sun_la / 180) * Math.PI);
+        the_light.position.y -= 10 * Math.sin((sun_la / 180) * Math.PI);
+    }
+    // console.log('sun_la= '+sun_la);
+    // out_light_sas.position.z=250*Math.cos(sun_rotation_angle);
+    // out_light_sas.position.y=250*Math.sin(sun_rotation_angle);
+}
+function create_taipei_house(){
+    let mtlLoader = new THREE.MTLLoader();
+    mtlLoader.setPath('./building/');
+    mtlLoader.load('tutorial.mtl', function(materials) {
+        materials.preload();
+        let objLoader = new THREE.OBJLoader();
+        objLoader.setMaterials(materials);
+        objLoader.setPath('./building/');
+        objLoader.load('tutorial.obj', function(object) {
+            object.position.y = -95;
+            scene.add(object);
+        }, onProgress, onError);
+    });
+} 
+function create_sun(la, season, city) {
+    console.log("season " + season);
+    let sun_size = 2;
+    let sun_color = 0xffdc35;
+    // sun_season=0//0 = spring 1 =summer 2=winter
+    sun_season = season;
+
     const a = new THREE.SphereGeometry(sun_size);
     const b = new THREE.MeshBasicMaterial({ color: sun_color });
-    tmp = new THREE.Mesh(a, b);
-    tmp.castShadow = true;
-    tmp.position.x = 0;
-    tmp.position.y = 0;
-    return tmp;
-}
+    sunObj = new THREE.Mesh(a, b);
+    sunObj.castShadow = true;
+    sunObj.position.x = 0;
+    sunObj.position.y = 0;
+    scene.add(sunObj);
+    sun_flag = 1;
 
-function sun_orbit(the_sun) {
-    if (rotateAngle_sas > 2 * Math.PI) rotateAngle_sas = 0;
-    else rotateAngle_sas += 0.03;
-    the_sun.position.z = 33 * Math.cos(rotateAngle_sas);
-    the_sun.position.y = 33 * Math.sin(rotateAngle_sas);
-    // light_sas.position.copy(the_sun.position);
-    light_sas.position.z = 31 * Math.cos(rotateAngle_sas);
-    light_sas.position.y = 31 * Math.sin(rotateAngle_sas);
+    sun_light = new THREE.PointLight(0xffffff, 1, 200);
+    sun_light.castShadow = true;
 
-    // out_light_sas.position.z=250*Math.cos(rotateAngle_sas);
-    // out_light_sas.position.y=250*Math.sin(rotateAngle_sas);
+    scene.add(sun_light);
+    sun_la = la;
+    sun_rotation_angle = 0;
+
+    sun_orbit(sunObj, sun_light, la);
+    if (city == "default") create_default_house(2, -17.5, -2);
+    if (city == "Taiwan") create_taipei_house();
+    if (city == "America") create_default_house(2, -17.5, -2);
+    if (city == "England") create_default_house(2, -17.5, -2);
+    if (city == "Australia") create_default_house(2, -17.5, -2);
+    if (city == "Singapore") create_default_house(2, -17.5, -2);
 }
 function init() {
     scene = new THREE.Scene();
@@ -642,12 +899,6 @@ function init() {
     // out_light_sas = new THREE.PointLight(0xffffff,1,500);
     // out_light_sas.castShadow=true;
     // scene.add(out_light_sas);
-    light_sas = new THREE.PointLight(0xffffff, 1, 200);
-    light_sas.castShadow = true;
-    scene.add(light_sas);
-    spring_autumn_sun = create_sun(2, 0xffdc35, 0, 0);
-    scene.add(spring_autumn_sun);
-    rotateAngle_sas = 0;
 
     // let pointLight2 = new THREE.PointLight(0xffffff);
     // pointLight2.position.set(0, 0, 0);
@@ -658,9 +909,9 @@ function init() {
 
     let ambientLight = new THREE.AmbientLight(0x484891, 0.6);
     scene.add(ambientLight);
-    
+
     //^-----------------------------------------
-    create_default_house(2,-17.5,-2)
+    create_default_house(2, -17.5, -2);
     makeParticles();
     // create_plane();
     create_circle_plane();
@@ -689,15 +940,11 @@ function initStats() {
     return stats;
 }
 function render() {
-    // animate(house_obj.house);
-    sun_orbit(spring_autumn_sun);
+    sun_orbit(sunObj, sun_light);
     requestAnimationFrame(render);
     orbit_camera.update();
     StatsUI.update();
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = 2;
-    renderer.render(scene, camera); 
+    renderer.render(scene, camera);
 }
-
-// init();
-// render();

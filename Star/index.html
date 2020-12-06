@@ -9,7 +9,8 @@
 		<script src="./lib/OrbitControls.js"></script>
 		<script src="./lib/Stats.min.js"></script>
 		<script src="./select.js"></script> 
-
+		<script src="./lib/OBJLoader.js"></script>
+		<script src="./lib/MTLLoader.js"></script>
     </head>
 	<body onload="myFunction()">
 	<div id='loading'></div>
@@ -31,9 +32,9 @@
 		<br><br><br><br>
 		<input type="button" value="Google" onclick="connect()" class="season"></input>
 		<br><br><br><br>
-		<input type="button" value="春分、秋分" class="season"></input>
-		<input type="button" value="夏至" class="season"></input>
-		<input type="button" value="冬至" class="season"></input>
+		<input type="button" value="春分、秋分" class="season" onclick="show_spring()"></input>
+		<input type="button" value="夏至" class="season" onclick="show_summer()"></input>
+		<input type="button" value="冬至" class="season" onclick="show_winter()"></input>
 		<div id="result"></div>
 		</div> 
 		
