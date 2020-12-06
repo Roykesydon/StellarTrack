@@ -14,6 +14,8 @@ let sun_la;
 let sun_season = 0;
 let scene_house;
 let ground_plane;
+let daylight;
+let day_light_flag=0;
 function animate(target) {
     target.rotation.x += 0.01;
     target.rotation.y += 0.01;
@@ -807,7 +809,6 @@ function remove_sun() {
 }
 function sun_orbit(the_sun, the_light) {
     if (!sun_flag) return;
-
     if (sun_rotation_angle > 2 * Math.PI) sun_rotation_angle = 0;
     else sun_rotation_angle += 0.03;
     the_sun.position.z = 27 * Math.cos(sun_rotation_angle);
@@ -815,29 +816,47 @@ function sun_orbit(the_sun, the_light) {
         27 * Math.sin(sun_rotation_angle) * Math.cos((sun_la / 180) * Math.PI) -
         17.5;
     // light_sas.position.copy(the_sun.position);
-    the_light.position.z = 25 * Math.cos(sun_rotation_angle);
-    the_light.position.y =
-        25 * Math.sin(sun_rotation_angle) * Math.cos((sun_la / 180) * Math.PI) -
-        17.5;
+    if(sun_light_flag){
+        the_light.position.z = 25 * Math.cos(sun_rotation_angle);
+        the_light.position.y =
+            25 * Math.sin(sun_rotation_angle) * Math.cos((sun_la / 180) * Math.PI) -
+            17.5;
+    }
     the_sun.position.x =
         -27 * Math.sin(sun_rotation_angle) * Math.sin((sun_la / 180) * Math.PI);
-    the_light.position.x =
-        -25 * Math.sin(sun_rotation_angle) * Math.sin((sun_la / 180) * Math.PI);
+    if(sun_light_flag){
+        the_light.position.x =
+            -25 * Math.sin(sun_rotation_angle) * Math.sin((sun_la / 180) * Math.PI);
+    }
     // the_sun.position.x = -27 * Math.sin(sun_rotation_angle);
     // the_light.position.x = -25 * Math.sin(sun_rotation_angle);
     if (sun_season == 1) {
         console.log("summer");
         the_sun.position.x += 10 * Math.cos((sun_la / 180) * Math.PI);
         the_sun.position.y += 10 * Math.sin((sun_la / 180) * Math.PI);
-        the_light.position.x += 10 * Math.cos((sun_la / 180) * Math.PI);
-        the_light.position.y += 10 * Math.sin((sun_la / 180) * Math.PI);
+        if(sun_light_flag){
+            the_light.position.x += 10 * Math.cos((sun_la / 180) * Math.PI);
+            the_light.position.y += 10 * Math.sin((sun_la / 180) * Math.PI);
+        }
     }
     if (sun_season == 2) {
         console.log("winter");
         the_sun.position.x -= 10 * Math.cos((sun_la / 180) * Math.PI);
         the_sun.position.y -= 10 * Math.sin((sun_la / 180) * Math.PI);
-        the_light.position.x -= 10 * Math.cos((sun_la / 180) * Math.PI);
-        the_light.position.y -= 10 * Math.sin((sun_la / 180) * Math.PI);
+        if(sun_light_flag){
+            the_light.position.x -= 10 * Math.cos((sun_la / 180) * Math.PI);
+            the_light.position.y -= 10 * Math.sin((sun_la / 180) * Math.PI);
+        }
+    }
+    if(the_sun.position.y>-17.5&& sun_light_flag==0){
+        sun_light = new THREE.PointLight(0xffffff, 1, 200);
+        sun_light.castShadow = true;
+        scene.add(sun_light);
+        sun_light_flag=1;
+    }
+    if(the_sun.position.y<-17.5&& sun_light_flag==1){
+        scene.remove(sun_light);
+        sun_light_flag=0;
     }
     // console.log('sun_la= '+sun_la);
     // out_light_sas.position.z=250*Math.cos(sun_rotation_angle);
@@ -874,6 +893,18 @@ function create_taipei_house() {
         );
     });
 }
+function switch_day_light(){
+    if(!sun_flag)return;
+    if(sunObj.position.y>-17.5){
+        scene.remove(daylight);
+        let tmp = new THREE.AmbientLight(0x66B3FF, 5*Math.sin(sun_rotation_angle));
+        daylight=tmp;
+        scene.add(daylight);
+    }
+    if(sunObj.position.y<-17.5){
+        scene.remove(daylight);
+    }
+}
 function create_sun(la, season, city) {
     console.log("season " + season);
     let sun_size = 2;
@@ -894,6 +925,7 @@ function create_sun(la, season, city) {
     sun_light.castShadow = true;
 
     scene.add(sun_light);
+    sun_light_flag=1;
     sun_la = la;
     sun_rotation_angle = 0;
 
@@ -996,6 +1028,7 @@ function initStats() {
 function render() {
     sun_orbit(sunObj, sun_light);
     requestAnimationFrame(render);
+    switch_day_light();
     orbit_camera.update();
     StatsUI.update();
     renderer.shadowMap.enabled = true;
