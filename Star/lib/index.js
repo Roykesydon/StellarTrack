@@ -889,7 +889,7 @@ function create_taipei_house() {
                     });
                   } );
 
-                console.log("taipei17:11");
+                console.log("taipei18:12");
                 scene_house = object;
                 scene.add(scene_house);
             },
