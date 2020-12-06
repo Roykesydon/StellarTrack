@@ -740,7 +740,7 @@ function remove_ground() {
 function create_circle_plane() {
     //r=35
     const planeGeometry = new THREE.CircleGeometry(35, 40);
-    const planeMaterial = new THREE.MeshPhongMaterial({
+    const planeMaterial = new THREE.MeshStandardMaterial({
         color: 0x01814a,
         roughness: 1,
         side: THREE.DoubleSide,
@@ -756,8 +756,8 @@ function create_circle_plane() {
 function create_taipei_plane() {
     //r=35
     const planeGeometry = new THREE.CircleGeometry(35, 40);
-    const planeMaterial = new THREE.MeshPhongMaterial({
-        color: 0x3C3C3C,
+    const planeMaterial = new THREE.MeshStandardMaterial({
+        color: 0x8E8E8E,
         roughness: 1,
         side: THREE.DoubleSide,
     });
@@ -863,7 +863,8 @@ function create_taipei_house() {
             "taipei.obj",
             function (object) {
                 object.position.y = -17.5;
-                object.scale.set(0.3, 0.3, 0.3);
+                object.position.x=-3;
+                object.scale.set(0.4, 0.4, 0.4);
                 console.log("taipei17:11");
                 house_obj = object;
                 scene.add(house_obj);
