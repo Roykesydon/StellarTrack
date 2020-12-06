@@ -826,10 +826,10 @@ function sun_orbit(the_sun, the_light) {
 }
 function create_taipei_house(){
     var onProgress = function ( xhr ) {
-        if ( xhr.lengthComputable ) {
-            var percentComplete = xhr.loaded / xhr.total * 100;
-            console.log( Math.round(percentComplete, 2) + '% downloaded' );
-        }
+        // if ( xhr.lengthComputable ) {
+        //     var percentComplete = xhr.loaded / xhr.total * 100;
+        //     console.log( Math.round(percentComplete, 2) + '% downloaded' );
+        // }
     };
     
     var onError = function ( xhr ) { };
@@ -841,10 +841,11 @@ function create_taipei_house(){
         objLoader.setMaterials(materials);
         objLoader.setPath('./building/');
         objLoader.load('taipei.obj', function(object) {
-            object.position.y = 0;
-            object.scale.set(0.01,0.01,0.01);
+            object.position.y = -17.5;
+            object.scale.set(0.3,0.3,0.3);
             console.log('taipei16:51');
-            scene.add(object);
+            house_obj=object
+            scene.add(house_obj);
         }, onProgress, onError);
     });
 } 
