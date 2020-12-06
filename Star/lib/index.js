@@ -916,7 +916,8 @@ function create_sun(la, season, city) {
     const a = new THREE.SphereGeometry(sun_size);
     const b = new THREE.MeshBasicMaterial({ color: sun_color });
     sunObj = new THREE.Mesh(a, b);
-    sunObj.castShadow = true;
+    // sunObj.castShadow = true;
+    sunObj.castShadow = false;
     sunObj.position.x = 0;
     sunObj.position.y = 0;
     scene.add(sunObj);
