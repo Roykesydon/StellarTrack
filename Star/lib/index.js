@@ -886,6 +886,7 @@ function create_taipei_house() {
                     if (obj instanceof THREE.Mesh) {
                         obj.castShadow = true;
                         obj.receiveShadow = true;
+                        obj.roughness=1.0;
                     }
                 });
 
