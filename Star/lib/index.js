@@ -883,6 +883,7 @@ function create_taipei_house() {
             function (object) {
                 object.position.y = -17.5;
                 object.position.x=-3;
+                object.position.z=3;
                 object.scale.set(0.4, 0.4, 0.4);
                 console.log("taipei17:11");
                 house_obj = object;
