@@ -886,8 +886,8 @@ function create_taipei_house() {
                 object.position.z=3;
                 object.scale.set(0.4, 0.4, 0.4);
                 console.log("taipei17:11");
-                house_obj = object;
-                scene.add(house_obj);
+                scene_house = object;
+                scene.add(scene_house);
             },
             onProgress,
             onError
