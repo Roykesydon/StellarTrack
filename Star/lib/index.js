@@ -835,15 +835,15 @@ function create_taipei_house(){
     var onError = function ( xhr ) { };
     let mtlLoader = new THREE.MTLLoader();
     mtlLoader.setPath('./building/');
-    mtlLoader.load('tutorial.mtl', function(materials) {
+    mtlLoader.load('taipei.mtl', function(materials) {
         materials.preload();
         let objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
         objLoader.setPath('./building/');
-        objLoader.load('tutorial.obj', function(object) {
+        objLoader.load('taipei.obj', function(object) {
             object.position.y = 0;
             object.scale.set(0.01,0.01,0.01);
-            console.log('03:09');
+            console.log('taipei16:51');
             scene.add(object);
         }, onProgress, onError);
     });
