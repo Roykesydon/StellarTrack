@@ -864,10 +864,6 @@ function sun_orbit(the_sun, the_light) {
 }
 function create_taipei_house() {
     var onProgress = function (xhr) {
-        // if ( xhr.lengthComputable ) {
-        //     var percentComplete = xhr.loaded / xhr.total * 100;
-        //     console.log( Math.round(percentComplete, 2) + '% downloaded' );
-        // }
     };
 
     var onError = function (xhr) {};
@@ -885,6 +881,14 @@ function create_taipei_house() {
                 object.position.x=-3;
                 object.position.z=3;
                 object.scale.set(0.4, 0.4, 0.4);
+
+                object.traverse( function ( child ) {
+                    if ( child.isMesh ) child.material = new THREE.MeshStandardMaterial({
+                      metalness: 0.2,
+                      roughness: 1,
+                    });
+                  } );
+
                 console.log("taipei17:11");
                 scene_house = object;
                 scene.add(scene_house);
