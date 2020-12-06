@@ -13,6 +13,7 @@ let sun_rotation_angle;
 let sun_la;
 let sun_season = 0;
 let scene_house;
+let ground_plane;
 function animate(target) {
     target.rotation.x += 0.01;
     target.rotation.y += 0.01;
@@ -725,13 +726,16 @@ function remove_house() {
 function create_default_house(x = 0, y = 0, z = 0) {
     house_obj = new default_house();
     house_obj.house.position.set(x, y, z);
-    scene_house=house_obj.house;
+    scene_house = house_obj.house;
     scene.add(scene_house);
 }
 function create_pointer(x = 0, y = 0, z = 0) {
     pointer_obj = new north_pointer();
     pointer_obj.pointer.position.set(x, y, z);
     scene.add(pointer_obj.pointer);
+}
+function remove_ground() {
+    scene.remove(ground_plane);
 }
 function create_circle_plane() {
     //r=35
@@ -746,10 +750,25 @@ function create_circle_plane() {
     circle_plane.position.set(0, -17.5, 0);
 
     circle_plane.receiveShadow = true;
-
-    scene.add(circle_plane);
+    ground_plane = circle_plane;
+    scene.add(ground_plane);
 }
+function create_taipei_plane() {
+    //r=35
+    const planeGeometry = new THREE.CircleGeometry(35, 40);
+    const planeMaterial = new THREE.MeshPhongMaterial({
+        color: 0x3C3C3C,
+        roughness: 1,
+        side: THREE.DoubleSide,
+    });
+    let circle_plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    circle_plane.rotation.x = -0.5 * Math.PI; // 使平面與 y 軸垂直，並讓正面朝上
+    circle_plane.position.set(0, -17.5, 0);
 
+    circle_plane.receiveShadow = true;
+    ground_plane = circle_plane;
+    scene.add(ground_plane);
+}
 function create_ground() {
     //r=35
     const geometry = new THREE.SphereGeometry(
@@ -824,31 +843,36 @@ function sun_orbit(the_sun, the_light) {
     // out_light_sas.position.z=250*Math.cos(sun_rotation_angle);
     // out_light_sas.position.y=250*Math.sin(sun_rotation_angle);
 }
-function create_taipei_house(){
-    var onProgress = function ( xhr ) {
+function create_taipei_house() {
+    var onProgress = function (xhr) {
         // if ( xhr.lengthComputable ) {
         //     var percentComplete = xhr.loaded / xhr.total * 100;
         //     console.log( Math.round(percentComplete, 2) + '% downloaded' );
         // }
     };
-    
-    var onError = function ( xhr ) { };
+
+    var onError = function (xhr) {};
     let mtlLoader = new THREE.MTLLoader();
-    mtlLoader.setPath('./building/');
-    mtlLoader.load('taipei.mtl', function(materials) {
+    mtlLoader.setPath("./building/");
+    mtlLoader.load("taipei.mtl", function (materials) {
         materials.preload();
         let objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
-        objLoader.setPath('./building/');
-        objLoader.load('taipei.obj', function(object) {
-            object.position.y = -17.5;
-            object.scale.set(0.3,0.3,0.3);
-            console.log('taipei16:51');
-            house_obj=object
-            scene.add(house_obj);
-        }, onProgress, onError);
+        objLoader.setPath("./building/");
+        objLoader.load(
+            "taipei.obj",
+            function (object) {
+                object.position.y = -17.5;
+                object.scale.set(0.3, 0.3, 0.3);
+                console.log("taipei17:11");
+                house_obj = object;
+                scene.add(house_obj);
+            },
+            onProgress,
+            onError
+        );
     });
-} 
+}
 function create_sun(la, season, city) {
     console.log("season " + season);
     let sun_size = 2;
@@ -873,12 +897,30 @@ function create_sun(la, season, city) {
     sun_rotation_angle = 0;
 
     sun_orbit(sunObj, sun_light, la);
-    if (city == "default") create_default_house(2, -17.5, -2);
-    if (city == "Taiwan") create_taipei_house();
-    if (city == "America") create_default_house(2, -17.5, -2);
-    if (city == "England") create_default_house(2, -17.5, -2);
-    if (city == "Australia") create_default_house(2, -17.5, -2);
-    if (city == "Singapore") create_default_house(2, -17.5, -2);
+    if (city == "default") {
+        create_default_house(2, -17.5, -2);
+        create_circle_plane();
+    }
+    if (city == "Taiwan") {
+        create_taipei_house();
+        create_taipei_plane();
+    }
+    if (city == "America") {
+        create_default_house(2, -17.5, -2);
+        create_circle_plane();
+    }
+    if (city == "England") {
+        create_default_house(2, -17.5, -2);
+        create_circle_plane();
+    }
+    if (city == "Australia") {
+        create_default_house(2, -17.5, -2);
+        create_circle_plane();
+    }
+    if (city == "Singapore") {
+        create_default_house(2, -17.5, -2);
+        create_circle_plane();
+    }
 }
 function init() {
     scene = new THREE.Scene();

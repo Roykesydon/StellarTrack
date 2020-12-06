@@ -29,6 +29,7 @@ function connect(){
     remove_line();
     remove_sun();
     remove_house();
+    remove_ground();
     let country;
     let la;
     if(flag) {
