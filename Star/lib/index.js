@@ -882,6 +882,13 @@ function create_taipei_house() {
                 object.position.z=3;
                 object.scale.set(0.4, 0.4, 0.4);
 
+                object.traverse(function (obj) {
+                    if (obj instanceof THREE.Mesh) {
+                        obj.castShadow = true;
+                        obj.receiveShadow = true;
+                    }
+                });
+
                 console.log("taipei19:03");
                 scene_house = object;
                 scene.add(scene_house);
