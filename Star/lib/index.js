@@ -895,7 +895,7 @@ function switch_day_light(){
     if(!sun_flag)return;
     if(sunObj.position.y>-17.5){
         scene.remove(daylight);
-        let tmp = new THREE.AmbientLight(0x66B3FF, 3*Math.sin(sun_rotation_angle));
+        let tmp = new THREE.AmbientLight(0x66B3FF, 1*Math.sin(sun_rotation_angle));
         daylight=tmp;
         scene.add(daylight);
     }
@@ -973,7 +973,7 @@ function init() {
         0.1, //最近的渲染距離
         1000 //最遠的渲染距離
     );
-    camera.position.set(70, -10, 50); // 位置
+    camera.position.set(30, 20, 120); // 位置
     camera.lookAt(scene.position); // 看的位置
     orbit_camera = new THREE.OrbitControls(camera, renderer.domElement);
     orbit_camera.enableDamping = true;
