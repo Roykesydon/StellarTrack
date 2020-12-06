@@ -841,7 +841,8 @@ function create_taipei_house(){
         objLoader.setMaterials(materials);
         objLoader.setPath('./building/');
         objLoader.load('tutorial.obj', function(object) {
-            object.position.y = -95;
+            object.position.y = 0;
+            object.scale.set(0.05,0.05,0.05);
             scene.add(object);
         }, onProgress, onError);
     });
