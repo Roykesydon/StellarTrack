@@ -32,7 +32,7 @@ function connect(){
     remove_ground();
     let country;
     let la;
-    if(flag) {
+    if(flag==1) {
         country=document.getElementById("country").value;
         if(country=="Taiwan") la=23.5;
         else if(country=="America") la=40;
@@ -41,11 +41,12 @@ function connect(){
         else if(country=="Singapore") la=0;
         city=country;
     }
-    else if(!flag) {
+    else if(flag==0) {
         la=parseInt(document.getElementById("latitude").value);
         // document.getElementById("latitude").value="";
         city="default";
     }
+    else{ la=position.coords.latitude.toFixed(1);}
     document.getElementById("result").innerHTML=la;
     createline(la);
     console.log('choose_season '+choose_season);
@@ -53,15 +54,10 @@ function connect(){
     create_sun(la,choose_season,city);
 } 
 function getLocation(){
-    remove_line();
-    remove_sun();
-    remove_house();
-    remove_ground();
     navigator.geolocation.getCurrentPosition(showPosition);
 }
 function showPosition(position){
     document.getElementById("result").innerHTML="緯度: " + position.coords.latitude.toFixed(1) + 
     "<br />經度: " + position.coords.longitude.toFixed(1);
-    createline(position.coords.latitude.toFixed(1));
-    create_sun(position.coords.latitude.toFixed(1),choose_season,"default")	
+    flag=2;
 }
