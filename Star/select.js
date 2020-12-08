@@ -53,6 +53,10 @@ function connect(){
     create_sun(la,choose_season,city);
 } 
 function getLocation(){
+    remove_line();
+    remove_sun();
+    remove_house();
+    remove_ground();
     if (navigator.geolocation){
         navigator.geolocation.getCurrentPosition(showPosition);
     }
@@ -61,10 +65,6 @@ function getLocation(){
     }
 }
 function showPosition(position){
-    remove_line();
-    remove_sun();
-    remove_house();
-    remove_ground();
     document.getElementById("result").innerHTML="緯度: " + position.coords.latitude.toFixed(1) + 
     "<br />經度: " + position.coords.longitude.toFixed(1);
     createline(position.coords.latitude.toFixed(1));
