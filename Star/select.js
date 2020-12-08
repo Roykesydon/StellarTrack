@@ -1,6 +1,7 @@
 let flag;
 let choose_season=0;
 let city;
+let la;
 function disConutry(){
     flag=0;
     document.getElementById("choose1").style.display="none";
@@ -31,7 +32,7 @@ function connect(){
     remove_house();
     remove_ground();
     let country;
-    let la;
+    
     if(flag==1) {
         country=document.getElementById("country").value;
         if(country=="Taiwan") la=23.5;
@@ -46,7 +47,6 @@ function connect(){
         // document.getElementById("latitude").value="";
         city="default";
     }
-    else{ la=position.coords.latitude.toFixed(1);}
     document.getElementById("result").innerHTML=la;
     createline(la);
     console.log('choose_season '+choose_season);
@@ -57,7 +57,9 @@ function getLocation(){
     navigator.geolocation.getCurrentPosition(showPosition);
 }
 function showPosition(position){
-    document.getElementById("result").innerHTML="緯度: " + position.coords.latitude.toFixed(1) + 
-    "<br />經度: " + position.coords.longitude.toFixed(1);
+    document.getElementById("result").innerHTML="當前座標:緯度: " + position.coords.latitude.toFixed(1) + 
+    "<br />經度: " + position.coords.longitude.toFixed(1)+"<br> 按下Google以顯示當前位置太陽軌跡圖";
+    la=position.coords.latitude.toFixed(1);
     flag=2;
+    city="default";
 }
