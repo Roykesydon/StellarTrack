@@ -25,12 +25,12 @@ function makeParticles() {
     let particle, material;
     // 每一个位置加入一个随机的粒子
     // z軸從-50~-30
-    for (let zpos = -15; zpos < -5; zpos += 0.5) {
+    for (let zpos = -100; zpos < 100; zpos += 1) {
         // 創建粒子材質 顏色預設白(可修改)
         material = new THREE.ParticleBasicMaterial({
             color: 0xffffff,
         });
-        for (let starNum = 0; starNum < 500; starNum++) {
+        for (let starNum = 0; starNum < 100; starNum++) {
             // 創建例子
             particle = new THREE.Particle(material);
             //x和y從-150~150

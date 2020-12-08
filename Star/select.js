@@ -52,3 +52,17 @@ function connect(){
     console.log('city '+city);
     create_sun(la,choose_season,city);
 } 
+function getLocation(){
+    if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+    else{
+        document.getElementById("result").innerHTML="Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position){
+    document.getElementById("result").innerHTML="緯度: " + position.coords.latitude.toFixed(1) + 
+    "<br />經度: " + position.coords.longitude.toFixed(1);
+    createline(position.coords.latitude.toFixed(1));
+    create_sun(position.coords.latitude.toFixed(1),choose_season,"default")	
+}
