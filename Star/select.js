@@ -57,12 +57,7 @@ function getLocation(){
     remove_sun();
     remove_house();
     remove_ground();
-    if (navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(showPosition);
-    }
-    else{
-        document.getElementById("result").innerHTML="Geolocation is not supported by this browser.";
-    }
+    navigator.geolocation.getCurrentPosition(showPosition);
 }
 function showPosition(position){
     document.getElementById("result").innerHTML="緯度: " + position.coords.latitude.toFixed(1) + 
