@@ -939,7 +939,7 @@ function create_england_house() {
                     }
                 });
 
-                console.log("bigben00:55");
+                console.log("bigben00:57");
                 scene_house = object;
                 scene.add(scene_house);
             },
