@@ -932,8 +932,8 @@ function create_england_house() {
             function (object) {
                 object.position.y = -17.5;
                 object.position.x=-3;
-                object.position.z=7;
-                object.scale.set(0.65, 0.65, 0.65);
+                object.position.z=10;
+                object.scale.set(0.5, 0.5, 0.5);
 
                 object.traverse(function (obj) {
                     if (obj instanceof THREE.Mesh) {
@@ -1003,8 +1003,8 @@ function create_sun(la, season, city) {
         create_circle_plane();
     }
     if (city == "England") {
-        create_england_house()
-        create_circle_plane();
+        create_england_house();
+        create_england_plane();
     }
     if (city == "Egypt") {
         create_default_house(2, -17.5, -2);
