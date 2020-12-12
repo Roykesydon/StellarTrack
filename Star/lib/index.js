@@ -935,11 +935,11 @@ function create_england_house() {
                     if (obj instanceof THREE.Mesh) {
                         obj.castShadow = true;
                         obj.receiveShadow = true;
-                        obj.roughness=1.0;
+                        // obj.roughness=1.0;
                     }
                 });
 
-                console.log("bigben17:03");
+                console.log("bigben23:59");
                 scene_house = object;
                 scene.add(scene_house);
             },
