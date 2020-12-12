@@ -23,25 +23,21 @@ function animate(target) {
 //創建星空
 function makeParticles() {
     let particle, material;
-    // 每一个位置加入一个随机的粒子
-    // z軸從-200~200
-    for (let zpos = -200; zpos < 200; zpos += 2) {
-        // 創建粒子材質 顏色預設白(可修改)
-        material = new THREE.ParticleBasicMaterial({
+    // 創建粒子
+    for (let starNum = 0; starNum < 10000; starNum++) {
+        // 創建粒子顏色預設白(可修改)
+        material = new THREE.SpriteMaterial({
             color: 0xffffff,
         });
-        for (let starNum = 0; starNum < 50; starNum++) {
-            // 創建例子
-            particle = new THREE.Particle(material);
-            //x和y從-150~150
-            particle.position.x = Math.random() * 300 - 150;
-            particle.position.y = Math.random() * 300 - 150;
-            particle.position.z = zpos;
-            // 粒子邊長
-            particle.scale.x = particle.scale.y = 0.05;
-            scene.add(particle);
-            particles.push(particle);
-        }
+        particle = new THREE.Sprite(material);
+        //x和y從-150~150 z從-100~100
+        particle.position.x = Math.random() * 300 - 150;
+        particle.position.y = Math.random() * 300 - 150;
+        particle.position.z = Math.random() * 200 - 100;
+        // 粒子邊長
+        particle.scale.x = particle.scale.y = particle.scale.z=0.05;
+        scene.add(particle);
+        particles.push(particle);
     }
 }
 class house {
