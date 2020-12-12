@@ -775,7 +775,7 @@ function create_england_plane() {
     //r=35
     const planeGeometry = new THREE.CircleGeometry(35, 40);
     const planeMaterial = new THREE.MeshStandardMaterial({
-        color: 0x4682b4,
+        color: 0x97CBFF,
         roughness: 1,
         side: THREE.DoubleSide,
     });
