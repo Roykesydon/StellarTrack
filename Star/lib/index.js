@@ -943,7 +943,7 @@ function create_england_house() {
                     }
                 });
 
-                console.log("bigben15:50");
+                console.log("bigben16:25");
                 scene_house = object;
                 scene.add(scene_house);
             },
