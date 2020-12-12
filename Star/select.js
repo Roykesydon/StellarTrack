@@ -47,11 +47,12 @@ function connect(){
         // document.getElementById("latitude").value="";
         city="default";
     }
-    document.getElementById("result").innerHTML=la;
+    document.getElementById("result").innerHTML="緯度:"+la;
     if(choose_season==0) document.getElementById("result").innerHTML+="<br>你現在選的季節是:<font style='color:red'>春秋</font>";
     if(choose_season==1) document.getElementById("result").innerHTML+="<br>你現在選的季節是:<font style='color:red'>夏</font>";
     if(choose_season==2) document.getElementById("result").innerHTML+="<br>你現在選的季節是:<font style='color:red'>冬</font>";
     createline(la);
+    update();
     console.log('choose_season '+choose_season);
     console.log('city '+city);
     create_sun(la,choose_season,city);

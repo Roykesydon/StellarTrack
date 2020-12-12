@@ -28,7 +28,7 @@
 		<div  style="display: none;" id="choose2">
 			<font>緯度:</font><input type="test" id="latitude" placeholder="北(+)南(-) -90~90"></input>
 		</div>
-		<br><br><br><br>
+		<br><br><br>
 		<input type="button" value="Google" onclick="connect()" class="season"></input>
 		<br><br><br><br>
 		<input type="button" value="春分、秋分" class="season" onclick="show_spring()"></input>
@@ -37,6 +37,8 @@
 		<br><br>
 		<div><input type="button" value="按下，取得您的座標" class="season" onclick="getLocation()"></input></div>
 		<div id="result"></div>
+		<br><br>
+		<canvas id="myCanvas" width="400" height="400"></canvas>
 		</div> 
 		
 	</div>
@@ -53,5 +55,6 @@
 		}
 	</script>
 	<script src="./lib/index.js"></script> 
+	<script src="./canvas.js"></script>
     </body>
 </html>
