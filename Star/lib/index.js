@@ -1032,7 +1032,7 @@ function init() {
         45, //視角
         container.offsetWidth / container.offsetHeight, //寬高比
         0.1, //最近的渲染距離
-        1000 //最遠的渲染距離
+        700 //最遠的渲染距離
     );
     camera.position.set(30, 20, 120); // 位置
     camera.lookAt(scene.position); // 看的位置
