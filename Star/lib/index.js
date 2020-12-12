@@ -927,7 +927,7 @@ function create_england_house() {
             "bigben.obj",
             function (object) {
                 object.position.y = -17.5;
-                object.position.x=2;
+                object.position.x=1;
                 object.position.z=18;
                 object.scale.set(0.5, 0.5, 0.5);
 
@@ -939,7 +939,7 @@ function create_england_house() {
                     }
                 });
 
-                console.log("bigben23:59");
+                console.log("bigben00:06");
                 scene_house = object;
                 scene.add(scene_house);
             },
