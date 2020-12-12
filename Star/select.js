@@ -62,7 +62,7 @@ function getLocation(){
 }
 function showPosition(position){
     document.getElementById("result").innerHTML="當前座標:緯度: " + position.coords.latitude.toFixed(1) + 
-    "<br />經度: " + position.coords.longitude.toFixed(1)+"<br> 按下Google以顯示當前位置太陽軌跡圖";
+    "<br />經度: " + position.coords.longitude.toFixed(1)+"<br> 按下Present以顯示當前位置太陽軌跡圖";
     la=position.coords.latitude.toFixed(1);
     flag=2;
     city="default";
