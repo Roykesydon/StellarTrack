@@ -24,13 +24,13 @@ function animate(target) {
 function makeParticles() {
     let particle, material;
     // 每一个位置加入一个随机的粒子
-    // z軸從-50~-30
-    for (let zpos = -100; zpos < 100; zpos += 1) {
+    // z軸從-200~200
+    for (let zpos = -200; zpos < 200; zpos += 2) {
         // 創建粒子材質 顏色預設白(可修改)
         material = new THREE.ParticleBasicMaterial({
             color: 0xffffff,
         });
-        for (let starNum = 0; starNum < 100; starNum++) {
+        for (let starNum = 0; starNum < 50; starNum++) {
             // 創建例子
             particle = new THREE.Particle(material);
             //x和y從-150~150
@@ -38,7 +38,7 @@ function makeParticles() {
             particle.position.y = Math.random() * 300 - 150;
             particle.position.z = zpos;
             // 粒子邊長
-            particle.scale.x = particle.scale.y = 0.1;
+            particle.scale.x = particle.scale.y = 0.05;
             scene.add(particle);
             particles.push(particle);
         }
@@ -953,7 +953,7 @@ function create_sun(la, season, city) {
         create_default_house(2, -17.5, -2);
         create_circle_plane();
     }
-    if (city == "Australia") {
+    if (city == "Egypt") {
         create_default_house(2, -17.5, -2);
         create_circle_plane();
     }
