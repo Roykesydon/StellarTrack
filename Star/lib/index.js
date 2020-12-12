@@ -931,9 +931,9 @@ function create_england_house() {
             "bigben.obj",
             function (object) {
                 object.position.y = -17.5;
-                object.position.x=-3;
-                object.position.z=18;
-                object.scale.set(0.53, 0.53, 0.53);
+                object.position.x=0;
+                object.position.z=19;
+                object.scale.set(0.55, 0.55, 0.55);
 
                 object.traverse(function (obj) {
                     if (obj instanceof THREE.Mesh) {
@@ -943,7 +943,7 @@ function create_england_house() {
                     }
                 });
 
-                console.log("bigben15:38");
+                console.log("bigben15:50");
                 scene_house = object;
                 scene.add(scene_house);
             },
