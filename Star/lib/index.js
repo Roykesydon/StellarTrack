@@ -932,8 +932,8 @@ function create_england_house() {
             function (object) {
                 object.position.y = -17.5;
                 object.position.x=-3;
-                object.position.z=3;
-                object.scale.set(0.4, 0.4, 0.4);
+                object.position.z=7;
+                object.scale.set(0.65, 0.65, 0.65);
 
                 object.traverse(function (obj) {
                     if (obj instanceof THREE.Mesh) {
