@@ -982,9 +982,9 @@ function create_egypt_house() {
             "egypt.obj",
             function (object) {
                 object.position.y = -17.5;
-                object.position.x=1;
-                object.position.z=18;
-                object.scale.set(0.5, 0.5, 0.5);
+                object.position.x=-5;
+                object.position.z=-5;
+                object.scale.set(0.8, 0.8, 0.8);
                 object.rotation.y=-Math.PI*0.5;
                 object.traverse(function (obj) {
                     if (obj instanceof THREE.Mesh) {
