@@ -28,7 +28,7 @@ function makeParticles(){
     // 創建粒子
     for (let starNum = 0; starNum < 5000; starNum++) {
         material = new THREE.SpriteMaterial({
-            color: c[Math.floor(Math.random() *6)],
+            color: c[0],
         });
         particle = new THREE.Sprite(material);
         //x和y從-100~100 z從-200~200
