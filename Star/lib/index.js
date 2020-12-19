@@ -985,7 +985,7 @@ function create_egypt_house() {
                 object.position.x=1;
                 object.position.z=18;
                 object.scale.set(0.5, 0.5, 0.5);
-                object.rotation.y=Math.PI*0.5;
+                object.rotation.y=-Math.PI*0.5;
                 object.traverse(function (obj) {
                     if (obj instanceof THREE.Mesh) {
                         obj.castShadow = true;
