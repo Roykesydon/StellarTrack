@@ -23,21 +23,28 @@ function animate(target) {
 //創建星空
 function makeParticles(){
     let particle, material;
+    //粒子顏色
+    let c=[0xffffff,0x0000ff,0xff0000,0xffff00,0xffa500]; 
     // 創建粒子
-    for (let starNum = 0; starNum < 3000; starNum++) {
-        // 創建粒子顏色預設白(可修改)
+    for (let starNum = 0; starNum < 5000; starNum++) {
         material = new THREE.SpriteMaterial({
-            color: 0xffffff,
+            color: c[Math.floor(Math.random() *6)],
         });
         particle = new THREE.Sprite(material);
         //x和y從-100~100 z從-200~200
-        particle.position.x = Math.random() * 200 - 100;
-        particle.position.y = Math.random() * 200 - 100;
-        let Rz=Math.random() * 500 - 250;
-        while(Rz<120&&Rz>10) Rz=Math.random() * 400 - 200;
+        let Rx=Math.random()*400-200;
+        let Ry=Math.random()*400-200;
+        let Rz=Math.random()*400-200;
+        while((Rx<150&&Rx>-150)&&(Ry<150&&Ry>-150)&&(Rz<150&&Rz>-150)){
+            Rx=Math.random()*400-200;
+            Ry=Math.random()*400-200;
+            Rz=Math.random()*400-200;
+        }
+        particle.position.x = Rx;
+        particle.position.y = Ry;
         particle.position.z = Rz;
         // 粒子邊長
-        particle.scale.x = particle.scale.y = particle.scale.z=0.05;
+        particle.scale.x = particle.scale.y = particle.scale.z=0.3;
         scene.add(particle);
         particles.push(particle);
     }
