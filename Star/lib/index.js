@@ -989,7 +989,7 @@ function create_egypt_house() {
             "egypt.obj",
             function (object) {
                 object.position.y = -17.5;
-                object.position.x=-10;
+                object.position.x=-15;
                 object.position.z=-5;
                 object.scale.set(0.7, 0.7, 0.7);
                 object.rotation.y=-Math.PI*0.5;
