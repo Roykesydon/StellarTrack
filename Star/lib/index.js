@@ -15,6 +15,7 @@ let sun_season = 0;
 let scene_house;
 let ground_plane;
 let daylight;
+let ambientLight
 let day_light_flag=0;
 function animate(target) {
     target.rotation.x += 0.01;
@@ -1111,7 +1112,7 @@ function init() {
     // let pointLightHelper = new THREE.PointLightHelper(pointLight2)
     // scene.add(pointLightHelper)
 
-    let ambientLight = new THREE.AmbientLight(0x484891, 0.6);
+    ambientLight = new THREE.AmbientLight(0x484891, 0.6);
     scene.add(ambientLight);
 
     //^-----------------------------------------
@@ -1152,4 +1153,10 @@ function render() {
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = 2;
     renderer.render(scene, camera);
+}
+function light_set(){
+    scene.remove(ambientLight);
+    let lum=parseFloat(document.getElementById("button").value);
+    ambientLight = new THREE.AmbientLight(0x484891,lum);
+    scene.add(ambientLight);
 }
