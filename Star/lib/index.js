@@ -994,7 +994,7 @@ function create_egypt_house() {
                     }
                 });
 
-                console.log("egypt14:11");
+                console.log("egypt14:20");
                 scene_house = object;
                 scene.add(scene_house);
             },
