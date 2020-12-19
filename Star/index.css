@@ -1,13 +1,52 @@
-#user{
-	float:right;
-	width:25%;
-	height:100%;
+#user {
+	/* background-image:url(maxresdefault.jpg); */
+	background-color: #00000A;
+    background-size:2000px;
+    float: right;
+    width: 25%;
+	height: 100%;
+	z-index: 100;
+	position: absolute;
+	left:75%;
+	top:0px;
 }
-select{
-		text-align:center;
-		width:50%;
-		height:25%;
+font{
+	color:white;
 }
-input{
-		width:45%;
+#result{
+		color:white;
+}
+#threeJS {
+	float: left;
+    z-index: 1;
+    position: absolute;
+    left: 0px;
+	top: 0px;
+	width: 75%;
+	height: 100%;
+}
+#stats {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 2;
+}
+div{
+	text-align: center;
+}
+select {
+    width: auto;
+    height: auto;
+}
+input {
+    width: auto;
+    height: auto;
+}
+.season{
+	color:white;
+	background-color:#222831;
+}
+
+#myCanvas{
+	transform: rotate(23.5deg);
 }
