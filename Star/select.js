@@ -44,7 +44,7 @@ function connect(){
     }
     else if(flag==0) {
         la=parseInt(document.getElementById("latitude").value);
-        // document.getElementById("latitude").value="";
+        //document.getElementById("latitude").value="";
         city="default";
     }
     document.getElementById("result").innerHTML="緯度:"+la;
@@ -56,6 +56,8 @@ function connect(){
     console.log('choose_season '+choose_season);
     console.log('city '+city);
     create_sun(la,choose_season,city);
+    let M=90-la;
+    document.getElementById("myCanvas").style.transform="rotate("+M+"deg)";
 } 
 function getLocation(){
     navigator.geolocation.getCurrentPosition(showPosition);
@@ -66,4 +68,6 @@ function showPosition(position){
     la=position.coords.latitude.toFixed(1);
     flag=2;
     city="default";
+    document.getElementById("choose1").style.display="none";
+    document.getElementById("choose2").style.display="none";
 }

@@ -21,19 +21,21 @@ function animate(target) {
     target.rotation.y += 0.01;
 }
 //創建星空
-function makeParticles() {
+function makeParticles(){
     let particle, material;
     // 創建粒子
-    for (let starNum = 0; starNum < 10000; starNum++) {
+    for (let starNum = 0; starNum < 3000; starNum++) {
         // 創建粒子顏色預設白(可修改)
         material = new THREE.SpriteMaterial({
             color: 0xffffff,
         });
         particle = new THREE.Sprite(material);
-        //x和y從-150~150 z從-100~100
-        particle.position.x = Math.random() * 300 - 150;
-        particle.position.y = Math.random() * 300 - 150;
-        particle.position.z = Math.random() * 200 - 100;
+        //x和y從-100~100 z從-200~200
+        particle.position.x = Math.random() * 200 - 100;
+        particle.position.y = Math.random() * 200 - 100;
+        let Rz=Math.random() * 500 - 250;
+        while(Rz<120&&Rz>10) Rz=Math.random() * 400 - 200;
+        particle.position.z = Rz;
         // 粒子邊長
         particle.scale.x = particle.scale.y = particle.scale.z=0.05;
         scene.add(particle);
