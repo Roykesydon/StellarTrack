@@ -785,6 +785,22 @@ function create_england_plane() {
     ground_plane = circle_plane;
     scene.add(ground_plane);
 }
+function create_egypt_plane() {
+    //r=35
+    const planeGeometry = new THREE.CircleGeometry(35, 40);
+    const planeMaterial = new THREE.MeshStandardMaterial({
+        color: 0xFFAF60,
+        roughness: 1,
+        side: THREE.DoubleSide,
+    });
+    let circle_plane = new THREE.Mesh(planeGeometry, planeMaterial);
+    circle_plane.rotation.x = -0.5 * Math.PI; // 使平面與 y 軸垂直，並讓正面朝上
+    circle_plane.position.set(0, -17.5, 0);
+
+    circle_plane.receiveShadow = true;
+    ground_plane = circle_plane;
+    scene.add(ground_plane);
+}
 function create_ground() {
     //r=35
     const geometry = new THREE.SphereGeometry(
@@ -950,6 +966,43 @@ function create_england_house() {
         );
     });
 }
+function create_egypt_house() {
+    var onProgress = function (xhr) {
+    };
+
+    var onError = function (xhr) {};
+    let mtlLoader = new THREE.MTLLoader();
+    mtlLoader.setPath("./building/");
+    mtlLoader.load("egypt.mtl", function (materials) {
+        materials.preload();
+        let objLoader = new THREE.OBJLoader();
+        objLoader.setMaterials(materials);
+        objLoader.setPath("./building/");
+        objLoader.load(
+            "egypt.obj",
+            function (object) {
+                object.position.y = -17.5;
+                object.position.x=1;
+                object.position.z=18;
+                object.scale.set(0.5, 0.5, 0.5);
+
+                object.traverse(function (obj) {
+                    if (obj instanceof THREE.Mesh) {
+                        obj.castShadow = true;
+                        obj.receiveShadow = true;
+                        // obj.roughness=1.0;
+                    }
+                });
+
+                console.log("egypt13:42");
+                scene_house = object;
+                scene.add(scene_house);
+            },
+            onProgress,
+            onError
+        );
+    });
+}
 function switch_day_light(){
     if(!sun_flag)return;
     if(sunObj.position.y>-17.5){
@@ -996,22 +1049,22 @@ function create_sun(la, season, city) {
         create_taipei_house();
         create_taipei_plane();
     }
-    if (city == "America") {
-        create_default_house(2, -17.5, -2);
-        create_circle_plane();
-    }
+    // if (city == "America") {
+    //     create_default_house(2, -17.5, -2);
+    //     create_circle_plane();
+    // }
     if (city == "England") {
         create_england_house();
         create_england_plane();
     }
     if (city == "Egypt") {
-        create_default_house(2, -17.5, -2);
-        create_circle_plane();
+        create_egypt_house();
+        create_egypt_plane();
     }
-    if (city == "Singapore") {
-        create_default_house(2, -17.5, -2);
-        create_circle_plane();
-    }
+    // if (city == "Singapore") {
+    //     create_default_house(2, -17.5, -2);
+    //     create_circle_plane();
+    // }
 }
 function init() {
     scene = new THREE.Scene();
