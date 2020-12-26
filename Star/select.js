@@ -32,6 +32,7 @@ function connect(){
     remove_sun();
     remove_house();
     remove_ground();
+    // remove_track();
     let country;
     
     if(flag==1) {
@@ -59,6 +60,7 @@ function connect(){
     create_sun(la,choose_season,city);
     let M=90-la;
     document.getElementById("myCanvas").style.transform="rotate("+M+"deg)";
+    // create_track(la,choose_season);
 } 
 function getLocation(){
     navigator.geolocation.getCurrentPosition(showPosition);

@@ -17,6 +17,8 @@ let ground_plane;
 let daylight;
 let ambientLight
 let day_light_flag=0;
+let dynamic_light=1.0;
+let track;
 function animate(target) {
     target.rotation.x += 0.01;
     target.rotation.y += 0.01;
@@ -103,6 +105,75 @@ class house {
         });
     }
 }
+
+function create_track(latitude,flag){
+    latitude=parseFloat(latitude);
+    const curve = new THREE.EllipseCurve(
+        0,  0,            
+        34, 34,           
+        0,  2 * Math.PI,  
+        false,            
+        0                 
+    );
+    // curve.rotation.x=latitude;
+    const points = curve.getPoints( 50 );
+    const geometry = new THREE.BufferGeometry().setFromPoints( points );
+    let material;
+    if(flag!=0)
+        material = new THREE.LineBasicMaterial( { color : 0xffffff } );
+    else
+        material = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+    const ellipse = new THREE.Line( geometry, material )
+    ellipse.position.set(0,-17.5,0);
+    ellipse.rotation.y= -((90-latitude)/180*Math.PI);
+    ellipse.rotation.x=0.5*Math.PI;
+    //----------------
+    const curve2 = new THREE.EllipseCurve(
+        0,  0,            
+        33, 33,           
+        0,  2 * Math.PI,  
+        false,            
+        0                 
+    );
+    const points2 = curve2.getPoints( 50 );
+    const geometry2 = new THREE.BufferGeometry().setFromPoints( points2 );
+    let material2;
+    if(flag!=1)
+        material2 = new THREE.LineBasicMaterial( { color : 0xffffff } );
+    else
+        material2 = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+    const ellipse2 = new THREE.Line( geometry2, material2 )
+    ellipse2.position.set(Math.cos(la/180*Math.PI)*10,-17.5+Math.sin(la/180*Math.PI)*10,0);
+    ellipse2.rotation.y= -((90-latitude)/180*Math.PI);
+    ellipse2.rotation.x=0.5*Math.PI;
+    //------------------------
+    const curve3 = new THREE.EllipseCurve(
+        0,  0,            
+        33, 33,           
+        0,  2 * Math.PI,  
+        false,            
+        0                 
+    );
+    const points3 = curve3.getPoints( 50 );
+    const geometry3 = new THREE.BufferGeometry().setFromPoints( points3 );
+    let material3;
+    if(flag!=2)
+        material3 = new THREE.LineBasicMaterial( { color : 0xffffff } );
+    else
+        material3 = new THREE.LineBasicMaterial( { color : 0xff0000 } );
+    const ellipse3 = new THREE.Line( geometry3, material3 )
+    ellipse3.position.set(-Math.cos(la/180*Math.PI)*10,-17.5-Math.sin(la/180*Math.PI)*10,0);
+    ellipse3.rotation.y= -((90-latitude)/180*Math.PI);
+    ellipse3.rotation.x=0.5*Math.PI;
+
+    track = new THREE.Group();
+    track.add(ellipse);
+    track.add(ellipse2);
+    track.add(ellipse3);
+    scene.add(track);
+}
+
+
 class default_house {
     constructor() {
         let main_geo = new THREE.Geometry();
@@ -708,7 +779,7 @@ class north_pointer {
 }
 
 function createline(x) {
-    const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+    const material = new THREE.LineBasicMaterial({ color: 0xffffff });
     const points = [];
     x1 = 50 * Math.cos((x / 180) * Math.PI);
     x2 = -50 * Math.cos((x / 180) * Math.PI);
@@ -744,6 +815,9 @@ function create_pointer(x = 0, y = 0, z = 0) {
 }
 function remove_ground() {
     scene.remove(ground_plane);
+}
+function remove_track(){
+    scene.remove(track);
 }
 function create_circle_plane() {
     //r=35
@@ -1015,7 +1089,7 @@ function switch_day_light(){
     if(!sun_flag)return;
     if(sunObj.position.y>-17.5){
         scene.remove(daylight);
-        let tmp = new THREE.AmbientLight(0x66B3FF, 1.5*Math.sin(sun_rotation_angle));
+        let tmp = new THREE.AmbientLight(0x66B3FF, 1.5*Math.sin(sun_rotation_angle)*dynamic_light);
         daylight=tmp;
         scene.add(daylight);
     }
@@ -1112,7 +1186,7 @@ function init() {
     // let pointLightHelper = new THREE.PointLightHelper(pointLight2)
     // scene.add(pointLightHelper)
 
-    ambientLight = new THREE.AmbientLight(0x484891, 0.6);
+    ambientLight = new THREE.AmbientLight(0x484891, 1.0);
     scene.add(ambientLight);
 
     //^-----------------------------------------
@@ -1126,12 +1200,16 @@ function init() {
     scene.add(create_ground()); //建造地面的半球型
     scene.add(create_pack_space()); //建造一個包住世界的球體
 
-    let axes = new THREE.AxesHelper(20);
-    scene.add(axes);
+    // let axes = new THREE.AxesHelper(20);
+    // scene.add(axes);
 
     container.appendChild(renderer.domElement);
+
 }
-StatsUI = initStats();
+
+// StatsUI = initStats();
+
+
 // RWD(camera and renderer)
 window.addEventListener("resize", function () {
     camera.aspect = container.offsetWidth / container.offsetHeight;
@@ -1149,14 +1227,14 @@ function render() {
     requestAnimationFrame(render);
     switch_day_light();
     orbit_camera.update();
-    StatsUI.update();
+    // StatsUI.update();
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = 2;
     renderer.render(scene, camera);
 }
 function light_set(){
     scene.remove(ambientLight);
-    let lum=parseFloat(document.getElementById("button").value);
+    let lum = dynamic_light =parseFloat(document.getElementById("button").value);
     ambientLight = new THREE.AmbientLight(0x484891,lum);
     scene.add(ambientLight);
 }
