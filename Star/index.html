@@ -14,7 +14,7 @@
 		<script src="./lib/MTLLoader.js"></script>
 		
     </head>
-	<body onload="myFunction()">
+	<body onload="myFunction()" onready="showPage()">
 	<div id='loading'></div>
 	<div id="myDiv" style="display:none;">
 		<div id="stats"></div>
@@ -51,7 +51,7 @@
 	<script>
 		var myVar;
 		function myFunction() {
-  				myVar = setTimeout(showPage, 500);
+			  myVar = setTimeout(showPage, 10);
 		}
 		function showPage() {
  			document.getElementById("loading").style.display = "none";
