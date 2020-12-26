@@ -7,15 +7,25 @@ function disConutry(){
     document.getElementById("choose1").style.display="none";
     document.getElementById("choose2").style.display="block";
 }
-function disLoc(){
+$(document).ready(function(){
+    $("#button1").click(function(){
+        $("#choose1").empty();
+        $("#choose1").append("<select name='country' id='country'>");
+        $.getJSON("https://roykesydon.github.io/StellarTrack/Star/country.json", function(result){
+            $.each(result, function(i, field){
+                $("select").append("<option value='"+i+"'>"+field+"</option>");
+            });
+        });
+    $("#choose1").append("</select>");
     flag=1;
-    document.getElementById("choose1").style.display="block";
+    $("#choose1").css("display", "block");
+    $("#choose2").css("display", "none");
+    /*document.getElementById("choose1").style.display="block";
     document.getElementById("choose1").innerHTML="<select name='country' id='country'>"+"<option value='Taiwan'>台灣 台北</option>"+
-    // "<option value='America'>美國 華盛頓哥倫比亞特區</option>"
-    "<option value='England'>英國 倫敦</option>"+"<option value='Egypt'>埃及 開羅</option>"
-    // +"<option value='Singapore'>新加坡 新加坡市</option></select>";
-    document.getElementById("choose2").style.display="none";
-}
+    "<option value='England'>英國 倫敦</option>"+"<option value='Egypt'>埃及 開羅</option>";
+    document.getElementById("choose2").style.display="none";*/
+    });
+});
 function show_spring(){
     choose_season=0;
 }
@@ -32,7 +42,6 @@ function connect(){
     remove_sun();
     remove_house();
     remove_ground();
-    // remove_track();
     let country;
     
     if(flag==1) {
@@ -60,7 +69,6 @@ function connect(){
     create_sun(la,choose_season,city);
     let M=90-la;
     document.getElementById("myCanvas").style.transform="rotate("+M+"deg)";
-    // create_track(la,choose_season);
 } 
 function getLocation(){
     navigator.geolocation.getCurrentPosition(showPosition);
