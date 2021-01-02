@@ -93,4 +93,5 @@ function showPosition(position){
 }
 function light_number(){
     document.getElementById("button").innerHTML=(document.getElementById("luminance").value/100).toFixed(2);
+    document.getElementById("button").value=(document.getElementById("luminance").value/100).toFixed(2);
 }
