@@ -54,3 +54,6 @@ input {
 #myCanvas{
 	transform: rotate(23.5deg);
 }
+#ppt{
+	margin-left: 10px;
+}
