@@ -12,12 +12,12 @@
 }
 font{
 	color:white;
-	font-family: "Microsoft JhengHei","微軟正黑體",sans-serif,arial !important;
+	/* font-family: "Microsoft JhengHei","微軟正黑體",sans-serif,arial !important; */
 	/* font-weight:bold; */
 }
 #result{
 	color:white;
-	font-family: "Microsoft JhengHei","微軟正黑體",sans-serif,arial !important;
+	/* font-family: "Microsoft JhengHei","微軟正黑體",sans-serif,arial !important; */
 	/* font-weight:bold; */
 }
 #threeJS {
@@ -56,4 +56,9 @@ input {
 }
 #ppt{
 	margin-left: 10px;
+}
+body{
+	font-family: gensen,"Microsoft JhengHei","微軟正黑體",sans-serif,arial !important;
+	font-weight: 50%;
+	background-color: black;
 }

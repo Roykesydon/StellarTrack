@@ -1,91 +1,103 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-
-		<title>StellarTrack</title>
-		<link rel="shortcut icon" href="./apyax-pybb4-001.ico" type="image/x-icon" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-		<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous"> -->
-		<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> -->
-		<link rel="stylesheet" href="./index.css" />
-		<!-- <link rel="stylesheet" href="./loading.css" /> -->
-
-    </head>
-	<body onload="myFunction()">
-	<div id='loading'></div>
-	<div id="myDiv" style="display:none;">
-		<div id="stats"></div>
-        <div id="threeJS"></div>
-        <div id="user">
-		<br><br><br>
-		<font>亮度:</font>
-		<input type="range" id="luminance" min="50" max="150" onmousemove="light_number()">
-		<!-- <input type="button" value="1.0" id="button" class="season" onclick="light_set()"></input> -->
-		<button class="btn btn-dark season" id="button" onclick="light_set()" value="1.0">
-			1.00
-		</button>
-		<a href="./StellarTrack-00857120+00857122.pptx"><img src="ppt-icon.png" height="4%" id="ppt" ></a>
-		<br><br>
-		<!-- <input type="button" value="國家"  id="button1" class="season"></input> -->
-		<button class="btn btn-dark season" id="button1" >
-			國家
-		</button>
-		<!-- <input type="button" value="緯度"  onclick="disConutry()" class="season"></input> -->
-		<button class="btn btn-dark season"  onclick="disConutry()" >
-			緯度
-		</button>
-		
-		<br><br>
-		<div style="display: none;" id="choose1">	
-		</div>
-		<br><br>
-		<div  style="display: none;" id="choose2">
-			<font>緯度: </font><input type="test" id="latitude" placeholder="北(+)南(-) -90~90"></input>
-		</div>
-		<br><br>
-		<!-- <input type="button" value="Present" onclick="connect()" class="season"></input> -->
-		<button class="btn btn-dark season" onclick="connect()">
-			Present
-		</button>
-		<br><br>
-		<!-- <input type="button" value="春分、秋分" class="season" onclick="show_spring()"></input> -->
-		<button class="btn btn-dark season"  onclick="show_spring()" >
-			春分、秋分
-		</button>
-		<!-- <input type="button" value="夏至" class="season" onclick="show_summer()"></input> -->
-		<button class="btn btn-dark season" id="button" onclick="show_summer()">
-			夏至
-		</button>
-		<!-- <input type="button" value="冬至" class="season" onclick="show_winter()"></input> -->
-		<button class="btn btn-dark season" id="button" onclick="show_winter()" >
-			冬至
-		</button>
-		<br><br>
-		<!-- <div><input type="button" value="取得使用者座標" class="season" onclick="getLocation()"></input></div> -->
-		<button class="btn btn-dark season" id="button" onclick="getLocation()" >
-			取得使用者座標
-		</button>
-		<div id="result"></div>
-		<br><br>
-		<canvas id="myCanvas" width="300" height="300"></canvas>
-		</div> 
-		
-	</div>
-
-	<script>
-		var myVar;
-		function myFunction() {
-			  myVar = setTimeout(showPage, 10);
-		}
-		function showPage() {
- 			document.getElementById("loading").style.display = "none";
-			document.getElementById("myDiv").style.display = "block";
-			init();
-			render();
-		}
-	</script>
-	<script src="./lib/index.js"></script> 
-	<script src="./canvas.js"></script>
-    </body>
+  <head>
+    <style>
+      @font-face {
+        font-family: gensen;
+        src: url("./fonts/GenSenRounded-M.ttc");
+      }
+      body {
+        background-image: url("./main2.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+      }
+    </style>
+    <title>StellarTrack</title>
+    <link
+      rel="shortcut icon"
+      href="./apyax-pybb4-001.ico"
+      type="image/x-icon"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <!-- <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+      crossorigin="anonymous"
+    ></script> -->
+    <script src="./main.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+    <link rel="stylesheet" href="./loading.css" />
+    <!-- <script src="./lib/three.min.js"></script>
+    <script src="./lib/OrbitControls.js"></script>
+    <script src="./lib/Stats.min.js"></script> -->
+    <!-- <script src="./select.js"></script> -->
+    <!-- <script src="./lib/OBJLoader.js"></script>
+    <script src="./lib/MTLLoader.js"></script> -->
+    <style>
+      #main_logo {
+        text-align: center;
+        width: 100%;
+        height: 70%;
+      }
+      #sel {
+        position: absolute;
+        /* box-sizing: border-box; */
+        text-align: center;
+        left:0%;
+        width: 100%;
+        bottom:10%;
+      }
+      #leftStar {
+        position: absolute;
+        box-sizing: border-box;
+        left:-10%;
+        top:20%;
+        text-align: center;
+        /* float: left; */
+      }
+      
+      #rightStar {
+        position: absolute;
+        box-sizing: border-box;
+        right:-10%;
+        top:10%;
+        text-align: center;
+      }
+      .title_link {
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+        font-size: 550%;
+        color: #d4dcff;
+      }
+      body{
+        overflow-x: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <span id="leftStar">
+      <img src="./blueStar.png" style="width: 120%;transform: rotate(90deg)"/>
+    </span>
+    <span id="sel">
+      <a href="./main.html" class="title_link">StellarTrack</a><br /><br />
+      <a
+        href="./StellarTrack-00857120+00857122.pptx"
+        class="title_link"
+        style="font-size: 250%"
+        >說明文件</a
+      >
+    </span>
+    <span id="rightStar">
+      <img src="./blueStar.png" style="width: 120%;transform: rotate(90deg)" />
+    </span>
+  </body>
 </html>
