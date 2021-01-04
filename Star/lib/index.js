@@ -113,7 +113,7 @@ function create_track(latitude,flag){
         34, 34,           
         0,  2 * Math.PI,  
         false,            
-        0                 
+        0
     );
     // curve.rotation.x=latitude;
     const points = curve.getPoints( 50 );
