@@ -7,11 +7,11 @@
         font-family: gensen;
         src: url("./fonts/GenSenRounded-M.ttc");
       }
-      body{
-          background-image: url("./main.png");
-          background-repeat: no-repeat;
-          background-size: cover;
-          background-attachment: fixed;
+      body {
+        background-image: url("./main.png");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
       }
     </style>
     <title>StellarTrack</title>
@@ -32,6 +32,7 @@
       integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
       crossorigin="anonymous"
     ></script>
+    <script src="./main.js"></script>
     <link rel="stylesheet" href="./index.css" />
     <link rel="stylesheet" href="./loading.css" />
     <script src="./lib/three.min.js"></script>
@@ -41,30 +42,62 @@
     <script src="./lib/OBJLoader.js"></script>
     <script src="./lib/MTLLoader.js"></script>
     <style>
-        #main_logo{
-            text-align: center;
-            width:100%;
-            height: 70%;
-        }
-        #sel{
-            position: absolute;
-            text-align: center;
-            width:100%;
-            height: 30%;
-            top:70%;
-        }
-        .title_link{
-            text-decoration: none;
-            font-size: 550%;
-            color: #d4dcff;
-        }
-
+      #main_logo {
+        text-align: center;
+        width: 100%;
+        height: 70%;
+      }
+      #sel {
+        position: absolute;
+        /* box-sizing: border-box; */
+        text-align: center;
+        left:0%;
+        width: 100%;
+        bottom:10px;
+      }
+      #leftStar {
+        position: absolute;
+        box-sizing: border-box;
+        left:-10%;
+        top:20%;
+        text-align: center;
+        /* float: left; */
+      }
+      
+      #rightStar {
+        position: absolute;
+        box-sizing: border-box;
+        right:-10%;
+        top:10%;
+        text-align: center;
+      }
+      .title_link {
+        height: 100%;
+        width: 100%;
+        text-decoration: none;
+        font-size: 550%;
+        color: #d4dcff;
+      }
+      body{
+        overflow-x: hidden;
+      }
     </style>
   </head>
-  <body >
-    <div id="sel">
-      <a href="./main.html" class="title_link" >StellarTrack</a><br><br>
-      <a href="./StellarTrack-00857120+00857122.pptx" class="title_link" style="font-size:250%" >說明文件</a>
-    </div>
+  <body>
+    <span id="leftStar">
+      <img src="./blueStar.png" style="width: 120%;transform: rotate(90deg)"/>
+    </span>
+    <span id="sel">
+      <a href="./main.html" class="title_link">StellarTrack</a><br /><br />
+      <a
+        href="./StellarTrack-00857120+00857122.pptx"
+        class="title_link"
+        style="font-size: 250%"
+        >說明文件</a
+      >
+    </span>
+    <span id="rightStar">
+      <img src="./blueStar.png" style="width: 120%;transform: rotate(90deg)" />
+    </span>
   </body>
 </html>
