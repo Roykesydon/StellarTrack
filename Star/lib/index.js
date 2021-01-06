@@ -1020,6 +1020,7 @@ function create_england_house() {
     mtlLoader.setPath("./building/");
     mtlLoader.load("bigben.mtl", function (materials) {
         materials.preload();
+        document.getElementById("loading").style.display = "block";//test
         let objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
         objLoader.setPath("./building/");
@@ -1042,6 +1043,7 @@ function create_england_house() {
                 console.log("bigben00:57");
                 scene_house = object;
                 scene.add(scene_house);
+                document.getElementById("loading").style.display = "none";//test
             },
             onProgress,
             onError
