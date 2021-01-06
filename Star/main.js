@@ -1,6 +1,8 @@
 
 
 function start(){
+    $("#rightStar").fadeToggle(2000);
+    $("#leftStar").fadeToggle(2000);
     setInterval(function(){ $("#rightStar").fadeToggle(2000);
     $("#leftStar").fadeToggle(2000); }, 2000);
 }

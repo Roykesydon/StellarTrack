@@ -1088,13 +1088,10 @@ function create_egypt_house() {
 function switch_day_light(){
     if(!sun_flag)return;
     if(sunObj.position.y>-17.5){
-        scene.remove(daylight);
-        let tmp = new THREE.AmbientLight(0x66B3FF, 1.5*Math.sin(sun_rotation_angle)*dynamic_light);
-        daylight=tmp;
-        scene.add(daylight);
+        daylight.intensity=1.5*Math.sin(sun_rotation_angle)*dynamic_light;
     }
-    if(sunObj.position.y<-17.5){
-        scene.remove(daylight);
+    else{
+        daylight.intensity=0;
     }
 }
 function create_sun(la, season, city) {
@@ -1160,6 +1157,9 @@ function init() {
     renderer.setSize(container.offsetWidth, container.offsetHeight);
     renderer.setClearColor(0xeeeeee, 1.0);
     renderer.shadowMap.enable = true;
+
+    daylight=new THREE.AmbientLight(0x66B3FF, 0);
+    scene.add(daylight);
 
     camera = new THREE.PerspectiveCamera(
         45, //視角
