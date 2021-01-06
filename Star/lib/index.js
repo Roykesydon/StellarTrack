@@ -1020,13 +1020,13 @@ function create_england_house() {
     mtlLoader.setPath("./building/");
     mtlLoader.load("bigben.mtl", function (materials) {
         materials.preload();
-        document.getElementById("loading").style.display = "block";//test
         let objLoader = new THREE.OBJLoader();
         objLoader.setMaterials(materials);
         objLoader.setPath("./building/");
         objLoader.load(
             "bigben.obj",
             function (object) {
+                document.getElementById("loading").style.display = "block";//test
                 object.position.y = -17.5;
                 object.position.x=1;
                 object.position.z=18;
