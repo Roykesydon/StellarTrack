@@ -1123,38 +1123,32 @@ function create_sun(la, season, city) {
     sun_rotation_angle = 0;
 
     sun_orbit(sunObj, sun_light, la);
+    $("#loading").show();
     if (city == "default") {
-        document.getElementById("loader").style.display = "block";
         create_default_house(2, -17.5, -2);
         create_circle_plane();
-        document.getElementById("loader").style.display = "none";
     }
     if (city == "Taiwan") {
-        document.getElementById("loader").style.display = "block";
         create_taipei_house();
         create_taipei_plane();
-        document.getElementById("loader").style.display = "none";
     }
     // if (city == "America") {
     //     create_default_house(2, -17.5, -2);
     //     create_circle_plane();
     // }
     if (city == "England") {
-        document.getElementById("loader").style.display = "block";
         create_england_house();
         create_england_plane();
-        document.getElementById("loader").style.display = "none";
     }
     if (city == "Egypt") {
-        document.getElementById("loader").style.display = "block";
         create_egypt_house();
         create_egypt_plane();
-        document.getElementById("loader").style.display = "none";
     }
     // if (city == "Singapore") {
     //     create_default_house(2, -17.5, -2);
     //     create_circle_plane();
     // }
+    $("#loading").hide();
 }
 function init() {
     scene = new THREE.Scene();
