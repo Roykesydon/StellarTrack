@@ -1123,7 +1123,7 @@ function create_sun(la, season, city) {
     sun_rotation_angle = 0;
 
     sun_orbit(sunObj, sun_light, la);
-    $("#loading").show();
+    document.getElementById("loading").style.display = "block";
     if (city == "default") {
         create_default_house(2, -17.5, -2);
         create_circle_plane();
@@ -1148,7 +1148,7 @@ function create_sun(la, season, city) {
     //     create_default_house(2, -17.5, -2);
     //     create_circle_plane();
     // }
-    $("#loading").hide();
+    document.getElementById("loading").style.display = "none";
 }
 function init() {
     scene = new THREE.Scene();
