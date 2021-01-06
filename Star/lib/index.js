@@ -1026,7 +1026,6 @@ function create_england_house() {
         objLoader.load(
             "bigben.obj",
             function (object) {
-                document.getElementById("loading").style.display = "block";//test
                 object.position.y = -17.5;
                 object.position.x=1;
                 object.position.z=18;
@@ -1043,7 +1042,6 @@ function create_england_house() {
                 console.log("bigben00:57");
                 scene_house = object;
                 scene.add(scene_house);
-                document.getElementById("loading").style.display = "none";//test
             },
             onProgress,
             onError
