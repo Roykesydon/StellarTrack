@@ -989,7 +989,6 @@ function create_taipei_house() {
         objLoader.load(
             "taipei.obj",
             function (object) {
-                document.getElementById("loading").style.display = "block";
                 object.position.y = -17.5;
                 object.position.x=-3;
                 object.position.z=3;
@@ -1006,7 +1005,6 @@ function create_taipei_house() {
                 console.log("taipei19:12");
                 scene_house = object;
                 scene.add(scene_house);
-                document.getElementById("loading").style.display = "none";
             },
             onProgress,
             onError
