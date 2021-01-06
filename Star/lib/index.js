@@ -19,6 +19,7 @@ let ambientLight
 let day_light_flag=0;
 let dynamic_light=1.0;
 let track;
+let frameSkip=0;
 function animate(target) {
     target.rotation.x += 0.01;
     target.rotation.y += 0.01;
@@ -1223,14 +1224,19 @@ function initStats() {
     return stats;
 }
 function render() {
-    sun_orbit(sunObj, sun_light);
     requestAnimationFrame(render);
+    // if(frameSkip==5){
+    //     frameSkip=0;
+    //     return;
+    // }
+    sun_orbit(sunObj, sun_light);
     switch_day_light();
     orbit_camera.update();
     // StatsUI.update();
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = 2;
     renderer.render(scene, camera);
+    frameSkip++;
 }
 function light_set(){
     scene.remove(ambientLight);
